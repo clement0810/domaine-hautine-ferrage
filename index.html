@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="nl">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="theme-color" content="#24352d">
+    <meta name="description" content="Privé jachtgebied en weerbericht voor Hautine-Ferrage.">
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="./vendor/maplibre-gl/maplibre-gl.css">
+    <title>Hautine-Ferrage | Jachtkaart</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: Georgia, "Times New Roman", serif;
+        background: #e7e8df;
+        color: #202b25;
+        font-synthesis: none;
+        text-rendering: optimizeLegibility;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        min-width: 320px;
+        height: 100vh;
+        height: 100dvh;
+        min-height: 0;
+        margin: 0;
+        display: grid;
+        grid-template-rows: auto minmax(0, 1fr) auto auto;
+        overflow: hidden;
+        background:
+          linear-gradient(135deg, rgb(255 255 255 / 45%), transparent 58%),
+          #e7e8df;
+      }
+
+      header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: max(1rem, env(safe-area-inset-top)) 1.1rem 1rem;
+        background: #24352d;
+        color: #f5f2e9;
+      }
+
+      .brand { min-width: 0; }
+
+      h1 {
+        margin: 0;
+        font-size: 1.15rem;
+        font-weight: 600;
+      }
+
+      .subtitle {
+        margin: 0.3rem 0 0;
+        color: #c4d0c4;
+        font: 0.78rem/1.3 system-ui, sans-serif;
+      }
+
+      .state {
+        flex: 0 0 auto;
+        border: 1px solid #819487;
+        border-radius: 999px;
+        padding: 0.38rem 0.65rem;
+        color: #e6eee5;
+        font: 0.72rem/1 system-ui, sans-serif;
+      }
+
+      main {
+        min-height: 0;
+        overflow: hidden;
+        padding: 0.8rem;
+      }
+
+      #map {
+        position: relative;
+        min-height: 300px;
+        height: 100%;
+        overflow: hidden;
+        border: 1px solid #b1b8a9;
+      }
+
+      .map-status {
+        position: absolute;
+        z-index: 1;
+        border: 1px solid #c7c9bc;
+        background: rgb(249 247 239 / 94%);
+        box-shadow: 0 3px 14px rgb(35 48 39 / 14%);
+        color: #29362e;
+        font: 0.75rem/1.35 system-ui, sans-serif;
+      }
+
+      .map-status {
+        top: 0.7rem;
+        left: 0.7rem;
+        max-width: min(22rem, calc(100% - 1.4rem));
+        padding: 0.5rem 0.7rem;
+      }
+
+      .navigation-options {
+        display: grid;
+        gap: 0.35rem;
+        margin-top: 0.65rem;
+      }
+
+      .navigation-options-title {
+        color: #536057;
+        font: 0.75rem/1.3 system-ui, sans-serif;
+      }
+
+      .stand-photo {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        height: auto;
+        max-height: none;
+        margin-inline: auto;
+        margin-bottom: 6px;
+        border-radius: 4px;
+        object-fit: contain;
+      }
+
+      .navigation-option {
+        display: block;
+        border-radius: 3px;
+        padding: 0.45rem 0.7rem;
+        background: #315f92;
+        color: #fff;
+        font: 600 0.8rem/1.2 system-ui, sans-serif;
+        text-decoration: none;
+      }
+
+      .wind-advice {
+        margin-top: 0.65rem;
+        border-top: 1px solid #d5c9b3;
+        padding-top: 0.55rem;
+        color: #38443d;
+        font: 0.76rem/1.4 system-ui, sans-serif;
+      }
+
+      .wind-advice-heading {
+        margin: 0 0 0.3rem;
+        color: #8a4b23;
+        font: 650 0.8rem/1.35 system-ui, sans-serif;
+      }
+
+      .wind-advice p { margin: 0.2rem 0; }
+      .wind-advice-safe { color: #267343; }
+      .wind-advice-recommendation { font-weight: 600; }
+
+      .bottom-sheet {
+        position: fixed;
+        z-index: 4;
+        right: max(0.7rem, env(safe-area-inset-right));
+        bottom: calc(68px + env(safe-area-inset-bottom));
+        left: max(0.7rem, env(safe-area-inset-left));
+        width: min(34rem, calc(100% - 1.4rem));
+        max-height: min(60vh, 480px);
+        margin-inline: auto;
+        overflow: hidden;
+        border: 1px solid #c8cbbf;
+        border-radius: 6px;
+        background: #f9f7ef;
+        box-shadow: 0 8px 28px rgb(23 35 28 / 28%);
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(calc(100% + 1rem));
+        transition: transform 220ms ease, opacity 180ms ease, visibility 220ms;
+        visibility: hidden;
+      }
+
+      .bottom-sheet.is-open {
+        opacity: 1;
+        pointer-events: auto;
+        transform: translateY(0);
+        visibility: visible;
+      }
+
+      .bottom-sheet-scroll {
+        max-height: min(60vh, 480px);
+        overflow-y: auto;
+        overscroll-behavior: contain;
+      }
+
+      .bottom-sheet-grabber {
+        width: 2.4rem;
+        height: 4px;
+        margin: 0.55rem auto 0.25rem;
+        border-radius: 2px;
+        background: #b6b9ad;
+      }
+
+      .bottom-sheet-header {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.55rem 0.9rem;
+        background: #f9f7ef;
+      }
+
+      .bottom-sheet-title {
+        overflow: hidden;
+        font-size: 1rem;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .bottom-sheet-close {
+        display: grid;
+        width: 40px;
+        height: 40px;
+        flex: 0 0 auto;
+        place-items: center;
+        border: 0;
+        border-radius: 4px;
+        background: #e7e8df;
+        color: #29362e;
+        font: 1.25rem/1 system-ui, sans-serif;
+      }
+
+      .bottom-sheet-content {
+        padding: 0 0.9rem 0.9rem;
+        font: 0.9rem/1.4 system-ui, sans-serif;
+      }
+
+      .bottom-sheet-type {
+        margin-top: 0.15rem;
+        color: #536057;
+        font-size: 0.8rem;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .bottom-sheet { transition: none; }
+      }
+
+      .view-panel {
+        height: 100%;
+        min-height: 0;
+      }
+
+      .weather-panel {
+        overflow: auto;
+        padding: 0.25rem 0.1rem 0.75rem;
+      }
+
+      .weather-panel[hidden],
+      #map[hidden] { display: none; }
+
+      .weather-heading {
+        margin: 0 0 0.25rem;
+        font-size: 1.25rem;
+        font-weight: 600;
+      }
+
+      .weather-location,
+      .weather-updated {
+        margin: 0;
+        color: #536057;
+        font: 0.8rem/1.45 system-ui, sans-serif;
+      }
+
+      .weather-banner {
+        margin-top: 0.8rem;
+        border-left: 3px solid #bd7a39;
+        padding: 0.55rem 0.7rem;
+        background: #f5edda;
+        color: #594524;
+        font: 0.78rem/1.4 system-ui, sans-serif;
+      }
+
+      .weather-banner[hidden],
+      .weather-error[hidden] { display: none; }
+
+      .weather-current {
+        margin-top: 0.85rem;
+        padding-bottom: 0.85rem;
+        border-bottom: 1px solid #c8cbbf;
+      }
+
+      .current-summary {
+        display: flex;
+        align-items: baseline;
+        gap: 0.75rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .current-icon {
+        display: inline-flex;
+        width: 2.25rem;
+        height: 2.25rem;
+        flex: 0 0 auto;
+      }
+
+      .current-temperature {
+        font-size: 2.4rem;
+        line-height: 1;
+      }
+
+      .current-description {
+        color: #536057;
+        font: 0.85rem/1.4 system-ui, sans-serif;
+      }
+
+      .weather-facts {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.65rem;
+        margin: 0;
+      }
+
+      .weather-fact {
+        border-top: 1px solid #c8cbbf;
+        padding-top: 0.45rem;
+      }
+
+      .weather-fact dt {
+        color: #536057;
+        font: 0.72rem/1.3 system-ui, sans-serif;
+      }
+
+      .weather-fact dd {
+        margin: 0.15rem 0 0;
+        font: 0.9rem/1.35 system-ui, sans-serif;
+      }
+
+      .forecast-heading {
+        margin: 0.85rem 0 0.6rem;
+        font-size: 1rem;
+        font-weight: 600;
+      }
+
+      .hourly-strip {
+        display: grid;
+        grid-auto-columns: minmax(74px, 1fr);
+        grid-auto-flow: column;
+        gap: 0.5rem;
+        overflow-x: auto;
+        overscroll-behavior-inline: contain;
+        padding: 0.2rem 0.1rem 0.65rem;
+        scrollbar-width: thin;
+      }
+
+      .hourly-item {
+        display: grid;
+        justify-items: center;
+        gap: 0.35rem;
+        min-height: 112px;
+        border: 1px solid #c8cbbf;
+        border-radius: 4px;
+        padding: 0.55rem 0.35rem;
+        background: rgb(249 247 239 / 65%);
+        font: 0.82rem/1.35 system-ui, sans-serif;
+      }
+
+      .hourly-time,
+      .hourly-wind,
+      .hourly-rain { color: #536057; font-size: 0.72rem; }
+      .hourly-icon {
+        display: inline-flex;
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+      .hourly-temperature { font-weight: 650; }
+
+      .weather-svg {
+        display: block;
+        width: 100%;
+        height: 100%;
+        overflow: visible;
+      }
+
+      .weather-svg-sun { color: #b87535; }
+      .weather-svg-moon { color: #596a91; }
+      .weather-svg-cloud,
+      .weather-svg-fog { color: #596a66; }
+      .weather-svg-rain { color: #315f92; }
+      .weather-svg-snow { color: #51889a; }
+      .weather-svg-storm { color: #7d6742; }
+
+      .forecast-table-wrap {
+        overflow-x: auto;
+        border-top: 1px solid #c8cbbf;
+      }
+
+      .forecast-table {
+        width: 100%;
+        border-collapse: collapse;
+        font: 0.78rem/1.35 system-ui, sans-serif;
+        text-align: left;
+      }
+
+      .forecast-table th,
+      .forecast-table td {
+        padding: 0.6rem 0.45rem;
+        border-bottom: 1px solid #c8cbbf;
+        vertical-align: middle;
+      }
+
+      .forecast-table th {
+        color: #536057;
+        font-size: 0.7rem;
+        font-weight: 600;
+      }
+
+      .forecast-weather { min-width: 7.5rem; }
+      .forecast-wind { white-space: nowrap; }
+      .weather-pictogram {
+        display: inline-flex;
+        width: 1.2rem;
+        height: 1.2rem;
+        margin-right: 0.25rem;
+        vertical-align: middle;
+      }
+
+      .weather-error {
+        margin-top: 0.7rem;
+        color: #8c3d2c;
+        font: 0.8rem/1.4 system-ui, sans-serif;
+      }
+
+      .bottom-nav {
+        position: sticky;
+        bottom: 0;
+        z-index: 3;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.35rem;
+        padding: 0.45rem 0.65rem max(0.45rem, env(safe-area-inset-bottom));
+        border-top: 1px solid #c5c8bb;
+        background: #f4f3eb;
+      }
+
+      .nav-tab {
+        min-height: 48px;
+        border: 0;
+        border-radius: 4px;
+        background: transparent;
+        color: #435047;
+        font: 600 0.82rem/1.2 system-ui, sans-serif;
+      }
+
+      .nav-tab[aria-selected="true"] {
+        background: #dce4d9;
+        color: #21382b;
+      }
+
+      footer {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 1rem;
+        padding: 0.65rem 1rem max(0.65rem, env(safe-area-inset-bottom));
+        color: #4a574d;
+        font: 0.72rem/1.3 system-ui, sans-serif;
+      }
+
+      @media (min-width: 700px) {
+        header { padding-inline: 1.5rem; }
+        main { padding: 1rem 1.5rem; }
+        footer { padding-inline: 1.5rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="brand">
+        <h1>Hautine-Ferrage</h1>
+        <p class="subtitle">Mesnil-Église</p>
+      </div>
+    </header>
+
+    <main>
+      <section id="map" class="view-panel" aria-label="Kaart">
+        <div id="map-status" class="map-status" role="status" aria-live="polite">Gebiedskaart laden...</div>
+      </section>
+      <section id="weather-panel" class="view-panel weather-panel" aria-labelledby="weather-heading" hidden>
+        <h2 id="weather-heading" class="weather-heading">Meteo</h2>
+        <p class="weather-location">Mesnil-Église</p>
+        <div id="weather-banner" class="weather-banner" role="status" aria-live="polite" hidden></div>
+        <p id="weather-updated" class="weather-updated"></p>
+        <p id="weather-error" class="weather-error" role="status" hidden></p>
+        <section class="weather-current" aria-labelledby="today-heading">
+          <h3 id="today-heading" class="forecast-heading">Vandaag</h3>
+          <div class="current-summary">
+            <span id="current-icon" class="current-icon" aria-hidden="true"></span>
+            <strong id="current-temperature" class="current-temperature">--°</strong>
+            <span id="current-description" class="current-description">Weer wordt geladen</span>
+          </div>
+          <dl class="weather-facts">
+            <div class="weather-fact"><dt>Wind</dt><dd id="current-wind">--</dd></div>
+            <div class="weather-fact"><dt>Windrichting</dt><dd id="current-direction">--</dd></div>
+            <div class="weather-fact"><dt>Zonsopkomst</dt><dd id="sunrise">--</dd></div>
+            <div class="weather-fact"><dt>Zonsondergang</dt><dd id="sunset">--</dd></div>
+            <div class="weather-fact"><dt>Dageraad, ca. 30 min eerder</dt><dd id="dawn">--</dd></div>
+            <div class="weather-fact"><dt>Schemering, ca. 30 min later</dt><dd id="twilight">--</dd></div>
+          </dl>
+        </section>
+        <section aria-labelledby="hourly-heading">
+          <h3 id="hourly-heading" class="forecast-heading">Per uur vandaag</h3>
+          <div id="hourly-forecast" class="hourly-strip" role="list" aria-label="Uurlijkse weersverwachting vandaag"></div>
+        </section>
+        <section aria-labelledby="forecast-heading">
+          <h3 id="forecast-heading" class="forecast-heading">Verwachting voor de komende 2 dagen</h3>
+          <div class="forecast-table-wrap">
+            <table class="forecast-table">
+              <thead>
+                <tr><th scope="col">Dag</th><th scope="col">Weersbeeld</th><th scope="col">Max / min temp.</th><th scope="col">Wind</th></tr>
+              </thead>
+              <tbody id="forecast-table-body"></tbody>
+            </table>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <aside id="feature-bottom-sheet" class="bottom-sheet" role="dialog" aria-modal="false" aria-hidden="true" aria-labelledby="bottom-sheet-title">
+      <div class="bottom-sheet-scroll">
+        <div class="bottom-sheet-grabber" aria-hidden="true"></div>
+        <div class="bottom-sheet-header">
+          <strong id="bottom-sheet-title" class="bottom-sheet-title"></strong>
+          <button id="bottom-sheet-close" class="bottom-sheet-close" type="button" aria-label="Sluiten">✕</button>
+        </div>
+        <div id="bottom-sheet-content" class="bottom-sheet-content"></div>
+      </div>
+    </aside>
+
+    <footer>
+      <span>© SPW Wallonie</span>
+      <span>Gebied Hautine-Ferrage</span>
+      <span id="offline-status" role="status" aria-live="polite">Offline cache: preparing</span>
+    </footer>
+    <nav class="bottom-nav" role="tablist" aria-label="Hoofdnavigatie">
+      <button id="map-tab" class="nav-tab" type="button" role="tab" aria-selected="true" aria-controls="map">Kaart</button>
+      <button id="weather-tab" class="nav-tab" type="button" role="tab" aria-selected="false" aria-controls="weather-panel">Meteo</button>
+    </nav>
+    <script src="./vendor/maplibre-gl/maplibre-gl.js"></script>
+    <script src="./vendor/pmtiles/pmtiles.js"></script>
+    <script type="module" src="app.js"></script>
+    <script>
+      const offlineStatus = document.querySelector("#offline-status");
+      if (!("serviceWorker" in navigator)) {
+        offlineStatus.textContent = "Offline cache: unsupported browser";
+      } else if (!isSecureContext) {
+        offlineStatus.textContent = "Offline cache: HTTPS required on this device";
+      } else {
+        navigator.serviceWorker.register("./sw.js")
+          .then(() => navigator.serviceWorker.ready)
+          .then(async () => {
+            const cache = await caches.open("hunting-map-v31");
+            const requiredFiles = [
+              "./index.html",
+              "./app.js",
+              "./manifest.json",
+              "./vendor/maplibre-gl/maplibre-gl.js",
+              "./vendor/maplibre-gl/maplibre-gl.css",
+              "./vendor/pmtiles/pmtiles.js",
+              "./data/hunting-data.geojson",
+              "./data/hautine_full.pmtiles",
+              "./images/stands/post_14.jpg",
+              "./images/stands/20H.jpg",
+              "./images/stands/9L.jpg",
+              "./images/stands/19H.jpg",
+              "./images/stands/17H.jpg",
+              "./images/stands/12L.jpg",
+              "./images/stands/13L.jpg",
+              "./images/stands/mirador_9.jpg",
+              "./images/stands/la_petite_golette.jpg",
+              "./images/stands/unnamed_post_1.jpg",
+              "./images/stands/unnamed_post_2.jpg",
+              "./images/stands/unnamed_post_3.jpg",
+              "./images/stands/unnamed_post_4.jpg",
+              "./images/stands/unnamed_post_5.jpg",
+              "./images/stands/unnamed_post_6.jpg",
+              "./images/stands/15H.jpg",
+              "./images/stands/14L.jpg",
+              "./images/stands/14H.jpg",
+              "./images/stands/12H.jpg",
+              "./images/stands/17L.jpg",
+              "./images/stands/16L.jpg",
+              "./images/stands/13H.jpg",
+              "./images/stands/18L.jpg",
+            ];
+            const allCached = await Promise.all(requiredFiles.map(async (path) => {
+              const response = await cache.match(new URL(path, document.baseURI).href);
+              return Boolean(response);
+            }));
+            offlineStatus.textContent = allCached.every(Boolean)
+              ? "Offline package cached"
+              : "Offline cache: package incomplete";
+          })
+          .catch((error) => {
+            console.error("Service worker registration failed:", error);
+            offlineStatus.textContent = "Offline cache: registration failed";
+          });
+      }
+    </script>
+  </body>
+</html>
