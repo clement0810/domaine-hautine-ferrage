@@ -1,11 +1,11 @@
-const CACHE_NAME = "hunting-map-v20";
+const CACHE_NAME = "hunting-map-v26";
 const FILES_TO_CACHE = [
   "./",
   "./index.html",
   "./app.js",
   "./manifest.json",
-  "./images/icon-192.png",
-  "./images/icon-512.png",
+  "./images/icon-fh-192.png",
+  "./images/icon-fh-512.png",
   "./vendor/maplibre-gl/maplibre-gl.js",
   "./vendor/maplibre-gl/maplibre-gl.css",
   "./vendor/pmtiles/pmtiles.js",
