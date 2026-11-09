@@ -418,6 +418,40 @@ const map = new maplibregl.Map({
   },
 });
 
+const themeToggle = document.querySelector("#theme-toggle");
+const themeStorageKey = "hautine_dark_mode";
+let darkMode = false;
+try {
+  darkMode = localStorage.getItem(themeStorageKey) === "true";
+} catch (error) {
+  console.warn("Theme preference unavailable:", error);
+}
+
+function applyTheme() {
+  document.body.classList.toggle("dark-mode", darkMode);
+  const label = darkMode ? "Nachtmodus uitschakelen" : "Nachtmodus inschakelen";
+  themeToggle.setAttribute("aria-label", label);
+  themeToggle.setAttribute("aria-pressed", String(darkMode));
+  themeToggle.title = label;
+  themeToggle.firstElementChild.textContent = darkMode ? "☀" : "☾";
+  document.querySelector('meta[name="theme-color"]').content = darkMode ? "#09090b" : "#24352d";
+  if (map.getLayer("territory-imagery")) {
+    map.setPaintProperty("territory-imagery", "raster-brightness-max", darkMode ? 0.35 : 1);
+  }
+}
+
+themeToggle.addEventListener("click", () => {
+  darkMode = !darkMode;
+  try {
+    localStorage.setItem(themeStorageKey, String(darkMode));
+  } catch (error) {
+    console.warn("Theme preference could not be saved:", error);
+  }
+  applyTheme();
+});
+applyTheme();
+map.on("style.load", applyTheme);
+
 map.addControl(new maplibregl.NavigationControl({ showCompass: true }), "top-right");
 map.addControl(new maplibregl.GeolocateControl({
   positionOptions: { enableHighAccuracy: true },
