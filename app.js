@@ -504,6 +504,8 @@ function showFeatureSheet(event) {
   else clearScentCone();
 
   featureSheetTitle.textContent = properties.name ?? "Locatie";
+  const standSuffix = String(properties.name ?? "").trim().toUpperCase().slice(-1);
+  featureSheetTitle.dataset.standClass = isParking ? "parking" : ["H", "L"].includes(standSuffix) ? standSuffix : "mirador";
   featureSheetContent.replaceChildren();
   const content = featureSheetContent;
   const type = document.createElement("div");

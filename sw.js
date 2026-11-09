@@ -41,7 +41,7 @@ let archiveBufferPromise;
 self.addEventListener("install", (event) => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE_NAME);
-    await cache.addAll(FILES_TO_CACHE);
+    await cache.addAll(FILES_TO_CACHE.map((path) => new Request(path, { cache: "reload" })));
     await self.skipWaiting();
   })());
 });

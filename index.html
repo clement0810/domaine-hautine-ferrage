@@ -11,7 +11,7 @@
     <style>
       :root {
         color-scheme: light;
-        font-family: Georgia, "Times New Roman", serif;
+        font-family: system-ui, sans-serif;
         background: #e7e8df;
         color: #202b25;
         font-synthesis: none;
@@ -45,6 +45,13 @@
       }
 
       .brand { min-width: 0; }
+
+      .header-actions { display: flex; align-items: center; gap: 0.6rem; }
+      .storage-hud { display: grid; justify-items: end; gap: 0.2rem; color: #d4d4d8; font: 0.68rem/1.2 system-ui, sans-serif; white-space: nowrap; }
+      .storage-state { display: flex; align-items: center; gap: 0.3rem; }
+      .storage-state::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: #eab308; }
+      .storage-state[data-ready="true"] { color: #86efac; }
+      .storage-state[data-ready="true"]::before { background: #4ade80; }
 
       .theme-toggle {
         display: grid;
@@ -584,6 +591,40 @@
       .dark-mode .maplibregl-ctrl-attrib-button { filter: invert(1); }
       .dark-mode .maplibregl-ctrl-attrib a { color: #e4e4e7; }
 
+      .bottom-sheet {
+        border: 1px solid rgb(255 255 255 / 75%);
+        background: rgb(255 255 255 / 88%);
+        color: #202b25;
+        -webkit-backdrop-filter: blur(12px);
+        backdrop-filter: blur(12px);
+      }
+      .dark-mode .bottom-sheet { border-color: #52525b; background: rgb(24 24 27 / 90%); color: #fafafa; }
+      .bottom-sheet-header,
+      .dark-mode .bottom-sheet-header { background: transparent; }
+      .bottom-sheet-grabber { flex-basis: 36px; }
+      .bottom-sheet-grabber::after { width: 3rem; height: 5px; background: #a1a1aa; }
+      .bottom-sheet-title { padding: 0.35rem 0.6rem; border-radius: 4px; background: #e4eee6; color: #21382b; font-weight: 750; }
+      .dark-mode .bottom-sheet-title { background: #3f3f46; color: #fafafa; }
+      .bottom-sheet-title[data-stand-class="H"] { background: #22c55e; color: #052e16; }
+      .bottom-sheet-title[data-stand-class="L"] { background: #eab308; color: #292000; }
+      .bottom-sheet-title[data-stand-class="mirador"] { background: #dc2626; color: #fff; }
+      .bottom-sheet-title[data-stand-class="parking"] { background: #2563eb; color: #fff; }
+      .bottom-sheet-close { width: 48px; height: 48px; background: rgb(224 228 222 / 90%); color: #29362e; }
+      .dark-mode .bottom-sheet-close { background: #3f3f46; color: #fafafa; }
+      .bottom-sheet-content { padding: 0 1rem 1rem; }
+      .bottom-sheet-type,
+      .navigation-options-title { color: #536057; }
+      .dark-mode .bottom-sheet-type,
+      .dark-mode .navigation-options-title { color: #d4d4d8; }
+      .wind-advice { border-color: #c8cbbf; color: #38443d; }
+      .dark-mode .wind-advice { border-color: #52525b; color: #e4e4e7; }
+      .wind-advice-heading { color: #8a4b23; }
+      .dark-mode .wind-advice-heading { color: #f4b77a; }
+      .wind-advice-safe { color: #267343; }
+      .dark-mode .wind-advice-safe { color: #86efac; }
+      .navigation-option { min-height: 48px; display: flex; align-items: center; }
+
+
       @media (min-width: 700px) {
         header { padding-inline: 1.5rem; }
         main { padding: 1rem 1.5rem; }
@@ -597,7 +638,13 @@
         <h1>Hautine-Ferrage</h1>
         <p class="subtitle">Mesnil-Église</p>
       </div>
-      <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Nachtmodus inschakelen" aria-pressed="false" title="Nachtmodus inschakelen"><span aria-hidden="true">☾</span></button>
+      <div class="header-actions">
+        <div class="storage-hud" role="status" aria-live="polite">
+          <span id="storage-state" class="storage-state">Offline controleren</span>
+          <span id="storage-usage">Opslag onbekend</span>
+        </div>
+        <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Nachtmodus inschakelen" aria-pressed="false" title="Nachtmodus inschakelen"><span aria-hidden="true">☾</span></button>
+      </div>
     </header>
 
     <main>
@@ -678,10 +725,28 @@
     <script type="module" src="app.js"></script>
     <script>
       const offlineStatus = document.querySelector("#offline-status");
+      const storageState = document.querySelector("#storage-state");
+      const storageUsage = document.querySelector("#storage-usage");
+      async function updateStorageUsage() {
+        try {
+          const estimate = await navigator.storage?.estimate?.();
+          storageUsage.textContent = Number.isFinite(estimate?.usage)
+            ? `Siteopslag ${(estimate.usage / 1000000).toFixed(1)} MB`
+            : "Opslag onbekend";
+        } catch (error) {
+          storageUsage.textContent = "Opslag onbekend";
+        }
+      }
+      updateStorageUsage();
+      document.addEventListener("visibilitychange", () => {
+        if (!document.hidden) updateStorageUsage();
+      });
       if (!("serviceWorker" in navigator)) {
         offlineStatus.textContent = "Offline cache: unsupported browser";
+        storageState.textContent = "Offline niet beschikbaar";
       } else if (!isSecureContext) {
         offlineStatus.textContent = "Offline cache: HTTPS required on this device";
+        storageState.textContent = "Offline niet beschikbaar";
       } else {
         navigator.serviceWorker.register("./sw.js")
           .then(() => navigator.serviceWorker.ready)
@@ -726,13 +791,18 @@
               const response = await cache.match(new URL(path, document.baseURI).href);
               return Boolean(response);
             }));
-            offlineStatus.textContent = allCached.every(Boolean)
+            const ready = allCached.every(Boolean);
+            storageState.dataset.ready = String(ready);
+            storageState.textContent = ready ? "Offline Ready" : "Offline onvolledig";
+            updateStorageUsage();
+            offlineStatus.textContent = ready
               ? "Offline package cached"
               : "Offline cache: package incomplete";
           })
           .catch((error) => {
             console.error("Service worker registration failed:", error);
             offlineStatus.textContent = "Offline cache: registration failed";
+            storageState.textContent = "Offline niet beschikbaar";
           });
       }
     </script>
