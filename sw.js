@@ -1,4 +1,4 @@
-const CACHE_NAME = "hunting-map-v32";
+const CACHE_NAME = "hunting-map-v25";
 const FILES_TO_CACHE = [
   "./",
   "./index.html",
@@ -7,7 +7,9 @@ const FILES_TO_CACHE = [
   "./vendor/maplibre-gl/maplibre-gl.js",
   "./vendor/maplibre-gl/maplibre-gl.css",
   "./vendor/pmtiles/pmtiles.js",
+  "./vendor/lineclip/index.js",
   "./data/hunting-data.geojson",
+  "./data/paths.geojson",
   "./data/hautine_full.pmtiles",
   "./images/stands/post_14.jpg",
   "./images/stands/20H.jpg",

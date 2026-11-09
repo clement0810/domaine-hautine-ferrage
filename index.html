@@ -98,6 +98,47 @@
         padding: 0.5rem 0.7rem;
       }
 
+      .layer-menu {
+        position: absolute;
+        z-index: 3;
+        bottom: 0.7rem;
+        left: 0.7rem;
+        max-width: calc(100% - 4.5rem);
+        border: 1px solid #c7c9bc;
+        border-radius: 4px;
+        background: rgb(249 247 239 / 96%);
+        box-shadow: 0 3px 14px rgb(35 48 39 / 14%);
+        color: #29362e;
+        font: 0.8rem/1.3 system-ui, sans-serif;
+      }
+
+      .layer-menu summary {
+        min-height: 40px;
+        padding: 0.7rem;
+        cursor: pointer;
+        font-weight: 600;
+      }
+
+      .layer-options {
+        display: grid;
+        gap: 0.1rem;
+        border-top: 1px solid #d5d9cd;
+        padding: 0.3rem;
+      }
+
+      .layer-option {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        min-height: 40px;
+        padding: 0.25rem 0.4rem;
+        cursor: pointer;
+      }
+
+      .layer-option input { width: 18px; height: 18px; margin: 0; accent-color: #315940; }
+      .layer-swatch { width: 1.5rem; border-top: 3px solid var(--layer-color); }
+      .layer-swatch.is-dashed { border-top-style: dashed; }
+
       .navigation-options {
         display: grid;
         gap: 0.35rem;
@@ -156,7 +197,9 @@
         bottom: calc(68px + env(safe-area-inset-bottom));
         left: max(0.7rem, env(safe-area-inset-left));
         width: min(34rem, calc(100% - 1.4rem));
-        max-height: min(60vh, 480px);
+        display: flex;
+        flex-direction: column;
+        max-height: var(--sheet-height, min(60vh, 480px));
         margin-inline: auto;
         overflow: hidden;
         border: 1px solid #c8cbbf;
@@ -178,15 +221,23 @@
       }
 
       .bottom-sheet-scroll {
-        max-height: min(60vh, 480px);
+        min-height: 0;
         overflow-y: auto;
         overscroll-behavior: contain;
       }
 
       .bottom-sheet-grabber {
+        display: grid;
+        flex: 0 0 28px;
+        place-items: center;
+        cursor: ns-resize;
+        touch-action: none;
+      }
+
+      .bottom-sheet-grabber::after {
+        content: "";
         width: 2.4rem;
         height: 4px;
-        margin: 0.55rem auto 0.25rem;
         border-radius: 2px;
         background: #b6b9ad;
       }
@@ -477,6 +528,15 @@
     <main>
       <section id="map" class="view-panel" aria-label="Kaart">
         <div id="map-status" class="map-status" role="status" aria-live="polite">Gebiedskaart laden...</div>
+        <details class="layer-menu">
+          <summary>Kaartlagen</summary>
+          <div class="layer-options" role="group" aria-label="Kaartlagen">
+            <label class="layer-option"><input type="checkbox" data-map-layer="hautine-waterways" checked disabled><span class="layer-swatch" style="--layer-color: #3b82f6" aria-hidden="true"></span>Waterlopen</label>
+            <label class="layer-option"><input type="checkbox" data-map-layer="hautine-tracks" checked disabled><span class="layer-swatch is-dashed" style="--layer-color: #d97706" aria-hidden="true"></span>Bospaden</label>
+            <label class="layer-option"><input type="checkbox" data-map-layer="hautine-roads" checked disabled><span class="layer-swatch" style="--layer-color: #a4adb6" aria-hidden="true"></span>Wegen</label>
+            <label class="layer-option"><input type="checkbox" data-map-layer="hautine-railways" checked disabled><span class="layer-swatch is-dashed" style="--layer-color: #111827" aria-hidden="true"></span>Spoorwegen</label>
+          </div>
+        </details>
       </section>
       <section id="weather-panel" class="view-panel weather-panel" aria-labelledby="weather-heading" hidden>
         <h2 id="weather-heading" class="weather-heading">Meteo</h2>
@@ -519,12 +579,12 @@
     </main>
 
     <aside id="feature-bottom-sheet" class="bottom-sheet" role="dialog" aria-modal="false" aria-hidden="true" aria-labelledby="bottom-sheet-title">
-      <div class="bottom-sheet-scroll">
-        <div class="bottom-sheet-grabber" aria-hidden="true"></div>
+      <div class="bottom-sheet-grabber" role="slider" tabindex="0" aria-label="Hoogte van het informatiepaneel" aria-orientation="vertical" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
         <div class="bottom-sheet-header">
           <strong id="bottom-sheet-title" class="bottom-sheet-title"></strong>
           <button id="bottom-sheet-close" class="bottom-sheet-close" type="button" aria-label="Sluiten">✕</button>
         </div>
+      <div class="bottom-sheet-scroll">
         <div id="bottom-sheet-content" class="bottom-sheet-content"></div>
       </div>
     </aside>
@@ -551,7 +611,7 @@
         navigator.serviceWorker.register("./sw.js")
           .then(() => navigator.serviceWorker.ready)
           .then(async () => {
-            const cache = await caches.open("hunting-map-v32");
+            const cache = await caches.open("hunting-map-v25");
             const requiredFiles = [
               "./index.html",
               "./app.js",
@@ -559,7 +619,9 @@
               "./vendor/maplibre-gl/maplibre-gl.js",
               "./vendor/maplibre-gl/maplibre-gl.css",
               "./vendor/pmtiles/pmtiles.js",
+              "./vendor/lineclip/index.js",
               "./data/hunting-data.geojson",
+              "./data/paths.geojson",
               "./data/hautine_full.pmtiles",
               "./images/stands/post_14.jpg",
               "./images/stands/20H.jpg",

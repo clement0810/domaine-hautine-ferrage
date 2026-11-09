@@ -1,3 +1,5 @@
+import { clipPolyline } from "./vendor/lineclip/index.js";
+
 export const MAP_CENTER = Object.freeze({
   longitude: 4.9790,
   latitude: 50.1666,
@@ -10,6 +12,20 @@ export const MAP_BOUNDS = Object.freeze({
   north: 50.1815,
 });
 
+function imageryTileBounds(bounds, zoom) {
+  const tileCount = 2 ** zoom;
+  const tileX = (longitude) => (longitude + 180) / 360 * tileCount;
+  const tileY = (latitude) => (1 - Math.asinh(Math.tan(latitude * Math.PI / 180)) / Math.PI) / 2 * tileCount;
+  const longitude = (tile) => tile / tileCount * 360 - 180;
+  const latitude = (tile) => Math.atan(Math.sinh(Math.PI * (1 - 2 * tile / tileCount))) * 180 / Math.PI;
+  return [
+    longitude(Math.floor(tileX(bounds.west))),
+    latitude(Math.ceil(tileY(bounds.south))),
+    longitude(Math.ceil(tileX(bounds.east))),
+    latitude(Math.floor(tileY(bounds.north))),
+  ];
+}
+
 const statusElement = document.querySelector("#map-status");
 const setStatus = (message) => {
   statusElement.textContent = message;
@@ -17,6 +33,44 @@ const setStatus = (message) => {
 const featureSheet = document.querySelector("#feature-bottom-sheet");
 const featureSheetTitle = document.querySelector("#bottom-sheet-title");
 const featureSheetContent = document.querySelector("#bottom-sheet-content");
+const featureSheetGrabber = document.querySelector(".bottom-sheet-grabber");
+const featureSheetHeader = document.querySelector(".bottom-sheet-header");
+
+function featureSheetHeightLimits() {
+  const minimum = featureSheetGrabber.offsetHeight + featureSheetHeader.offsetHeight + 24;
+  const bottom = parseFloat(getComputedStyle(featureSheet).bottom) || 0;
+  const maximum = Math.max(minimum, Math.min(window.innerHeight * 0.8, window.innerHeight - bottom - 12));
+  return { minimum, maximum };
+}
+
+function resizeFeatureSheet(height) {
+  const { minimum, maximum } = featureSheetHeightLimits();
+  const nextHeight = Math.max(minimum, Math.min(maximum, height));
+  featureSheet.style.setProperty("--sheet-height", `${nextHeight}px`);
+}
+
+new ResizeObserver(() => {
+  const { minimum, maximum } = featureSheetHeightLimits();
+  const value = (featureSheet.offsetHeight - minimum) / (maximum - minimum || 1) * 100;
+  featureSheetGrabber.setAttribute("aria-valuenow", String(Math.round(Math.max(0, Math.min(100, value)))));
+}).observe(featureSheet);
+
+let sheetDrag = null;
+featureSheetGrabber.addEventListener("pointerdown", (event) => {
+  if (event.button !== 0) return;
+  sheetDrag = { pointerId: event.pointerId, startY: event.clientY, height: featureSheet.getBoundingClientRect().height };
+  featureSheetGrabber.setPointerCapture(event.pointerId);
+});
+featureSheetGrabber.addEventListener("pointermove", (event) => {
+  if (sheetDrag?.pointerId !== event.pointerId) return;
+  resizeFeatureSheet(sheetDrag.height + sheetDrag.startY - event.clientY);
+});
+featureSheetGrabber.addEventListener("lostpointercapture", () => { sheetDrag = null; });
+featureSheetGrabber.addEventListener("keydown", (event) => {
+  if (event.key !== "ArrowUp" && event.key !== "ArrowDown") return;
+  event.preventDefault();
+  resizeFeatureSheet(featureSheet.getBoundingClientRect().height + (event.key === "ArrowUp" ? 40 : -40));
+});
 
 const weatherElements = {
   banner: document.querySelector("#weather-banner"),
@@ -372,6 +426,11 @@ map.addControl(new maplibregl.GeolocateControl({
 }), "top-right");
 map.addControl(new maplibregl.AttributionControl({ compact: true }), "bottom-right");
 
+const layerMenu = document.querySelector(".layer-menu");
+for (const eventType of ["pointerdown", "pointerup", "mousedown", "mouseup", "touchstart", "touchend", "click", "dblclick", "wheel"]) {
+  layerMenu.addEventListener(eventType, (event) => event.stopPropagation());
+}
+
 let featuresLoaded = false;
 map.on("error", (event) => {
   console.error("Map error:", event.error);
@@ -383,6 +442,7 @@ map.on("error", (event) => {
 function hideFeatureSheet() {
   featureSheet.classList.remove("is-open");
   featureSheet.setAttribute("aria-hidden", "true");
+  featureSheet.style.removeProperty("--sheet-height");
   featureSheetContent.replaceChildren();
   featureSheetTitle.textContent = "";
   clearScentCone();
@@ -502,6 +562,74 @@ map.on("load", async () => {
       },
     }));
 
+    map.addSource("hautine-paths", {
+      type: "geojson",
+      data: { type: "FeatureCollection", features: [] },
+      attribution: "© OpenStreetMap contributors",
+    });
+    fetch("./data/paths.geojson")
+      .then((response) => {
+        if (!response.ok) throw new Error(`Wegen ophalen mislukt (${response.status})`);
+        return response.json();
+      })
+      .then((paths) => {
+        const bounds = imageryTileBounds(MAP_BOUNDS, 13);
+        paths.features = paths.features.flatMap((feature) => {
+          const geometry = feature.geometry;
+          const lines = geometry?.type === "LineString" ? [geometry.coordinates]
+            : geometry?.type === "MultiLineString" ? geometry.coordinates : [];
+          const clipped = lines.flatMap((line) => line.length > 1 ? clipPolyline(line, bounds) : []);
+          if (!clipped.length) return [];
+          return [{
+            ...feature,
+            geometry: clipped.length === 1
+              ? { type: "LineString", coordinates: clipped[0] }
+              : { type: "MultiLineString", coordinates: clipped },
+          }];
+        });
+        map.getSource("hautine-paths").setData(paths);
+      })
+      .catch((error) => console.error("Path load error:", error));
+    const isWaterway = ["any", ["has", "waterway"], ["==", ["get", "natural"], "water"], ["has", "water"]];
+    const isRailway = ["in", ["get", "railway"], ["literal", ["rail", "light_rail", "tram", "narrow_gauge", "subway", "funicular", "preserved"]]];
+    const isTrack = ["any",
+      ["in", ["get", "highway"], ["literal", ["track", "path", "footway", "cycleway", "bridleway", "steps"]]],
+      ["in", ["get", "surface"], ["literal", ["unpaved", "dirt", "earth", "ground", "mud", "grass", "gravel", "fine_gravel", "sand"]]],
+    ];
+    map.addLayer({
+      id: "hautine-waterways",
+      type: "line",
+      source: "hautine-paths",
+      filter: isWaterway,
+      paint: { "line-color": "#3b82f6", "line-opacity": 0.6, "line-width": 2 },
+    });
+    map.addLayer({
+      id: "hautine-railways",
+      type: "line",
+      source: "hautine-paths",
+      filter: ["all", ["!", isWaterway], isRailway],
+      paint: { "line-color": "#111827", "line-opacity": 0.7, "line-width": 2.5, "line-dasharray": [4, 4] },
+    });
+    map.addLayer({
+      id: "hautine-roads",
+      type: "line",
+      source: "hautine-paths",
+      filter: ["all", ["!", isWaterway], ["!", isRailway], ["has", "highway"], ["!", isTrack]],
+      paint: { "line-color": "#f8fafc", "line-opacity": 0.7, "line-width": 3 },
+    });
+    map.addLayer({
+      id: "hautine-tracks",
+      type: "line",
+      source: "hautine-paths",
+      filter: ["all", ["!", isWaterway], ["!", isRailway], ["has", "highway"], isTrack],
+      paint: { "line-color": "#d97706", "line-opacity": 0.65, "line-width": 2, "line-dasharray": [3, 2] },
+    });
+    for (const checkbox of document.querySelectorAll("[data-map-layer]")) {
+      checkbox.addEventListener("change", () => {
+        map.setLayoutProperty(checkbox.dataset.mapLayer, "visibility", checkbox.checked ? "visible" : "none");
+      });
+      checkbox.disabled = false;
+    }
     map.addSource("hunting-data", { type: "geojson", data: featureCollection });
     map.addSource("scent-cone-source", { type: "geojson", data: EMPTY_SCENT_CONE });
     map.addLayer({
