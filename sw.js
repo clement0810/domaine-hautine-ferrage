@@ -4,6 +4,8 @@ const FILES_TO_CACHE = [
   "./index.html",
   "./app.js",
   "./manifest.json",
+  "./images/icon-192.png",
+  "./images/icon-512.png",
   "./vendor/maplibre-gl/maplibre-gl.js",
   "./vendor/maplibre-gl/maplibre-gl.css",
   "./vendor/pmtiles/pmtiles.js",

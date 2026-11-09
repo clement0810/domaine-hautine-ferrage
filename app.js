@@ -434,7 +434,7 @@ function applyTheme() {
   themeToggle.setAttribute("aria-pressed", String(darkMode));
   themeToggle.title = label;
   themeToggle.firstElementChild.textContent = darkMode ? "☀" : "☾";
-  document.querySelector('meta[name="theme-color"]').content = darkMode ? "#09090b" : "#24352d";
+  document.querySelector('meta[name="theme-color"]').content = "#09090b";
   if (map.getLayer("territory-imagery")) {
     map.setPaintProperty("territory-imagery", "raster-brightness-max", darkMode ? 0.35 : 1);
   }

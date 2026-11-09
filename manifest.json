@@ -1,13 +1,17 @@
 {
   "id": "./",
   "name": "Hautine-Ferrage Hunting Map",
-  "short_name": "Hautine Map",
+  "short_name": "Hautine",
   "description": "Private hunting group map for the Beauraing area.",
   "lang": "en",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",
-  "background_color": "#e7e8df",
-  "theme_color": "#24352d"
+  "background_color": "#09090b",
+  "theme_color": "#09090b",
+  "icons": [
+    { "src": "./images/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "./images/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
 }
