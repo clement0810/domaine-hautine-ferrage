@@ -23,7 +23,7 @@ Show the forecast-based cone with source/time and retain it for calm or stale fo
 
 Before enabling automated Weather Underground page collection, obtain confirmation that the permitted use covers automated fetching, retention, comparison/derivation and public redistribution. The station owners' permission is important but does not by itself settle the platform's terms. If those rights are not available, request a direct feed from station owners or use an authorized provider.
 
-After rights are clear, enable GitHub Actions in repository settings, add repository variable `TWC_WU_AUTOMATION_APPROVED=true`, and run the workflow manually once. It initializes `wind-observations` if needed and stores timestamped observations and forecast snapshots. Review Actions run logs/artifacts and the raw branch feed. The schedule is 15 minutes; GitHub may delay runs and disables schedules for inactive public repositories after 60 days.
+After rights are clear, enable GitHub Actions in repository settings, add repository variable `TWC_WU_AUTOMATION_APPROVED=true`, and run the workflow manually once. It initializes `wind-observations` if needed and stores timestamped observations and forecast snapshots. Review Actions run logs/artifacts and the raw branch feed. The schedule is 10 minutes; GitHub may delay runs and disables schedules for inactive public repositories after 60 days.
 
 **Acceptance:** repeated successful runs update `latest.json` and append daily history; unavailable stations are recorded as unavailable, not omitted; timestamps and status are preserved; the PWA falls back to localStorage offline.
 

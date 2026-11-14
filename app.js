@@ -450,6 +450,15 @@ function selectView(view) {
 document.querySelector("#map-tab").addEventListener("click", () => selectView("map"));
 document.querySelector("#weather-tab").addEventListener("click", () => selectView("weather"));
 
+function refreshVisibleStationObservations() {
+  if (!document.hidden && !document.querySelector("#weather-panel").hidden) {
+    loadStationObservations();
+  }
+}
+
+setInterval(refreshVisibleStationObservations, 10 * 60 * 1000);
+document.addEventListener("visibilitychange", refreshVisibleStationObservations);
+
 const protocol = new globalThis.pmtiles.Protocol();
 const maplibregl = globalThis.maplibregl;
 maplibregl.addProtocol("pmtiles", protocol.tile);
