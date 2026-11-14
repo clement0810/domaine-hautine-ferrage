@@ -24,9 +24,13 @@ export function parseStationPage(html, stationId, checkedAt = new Date()) {
   if (!Number.isFinite(timeMs) || !/GMT\+0000\b/.test(rawTime)) {
     throw new Error('Missing or invalid UTC observation time');
   }
-  if (wind.attr('data-unit') !== 'm') throw new Error('Expected metric wind units');
-  const speed = numberAttribute(wind, 'data-wind-speed');
-  const gust = numberAttribute(wind, 'data-wind-gust');
+  const unit = wind.attr('data-unit');
+  if (unit !== 'm' && unit !== 'e') throw new Error(`Unsupported wind units: ${unit ?? 'missing'}`);
+  const factor = unit === 'e' ? 1.609344 : 1;
+  const rawSpeed = numberAttribute(wind, 'data-wind-speed');
+  const rawGust = numberAttribute(wind, 'data-wind-gust');
+  const speed = rawSpeed === null ? null : rawSpeed * factor;
+  const gust = rawGust === null ? null : rawGust * factor;
   const direction = numberAttribute(wind, 'data-wind-dir');
   if (speed === null || speed < 0 || speed > 250 ||
       (gust !== null && (gust < 0 || gust > 300)) ||
