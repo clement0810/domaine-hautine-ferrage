@@ -1,42 +1,42 @@
 {
-  "generated_at": "2026-11-14T23:10:45.418Z",
+  "generated_at": "2026-11-14T23:20:39.951Z",
   "source": "Weather Underground",
   "observations": [
     {
       "station_id": "IHOUYE10",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE10",
-      "observed_at": "2026-11-14T23:10:23.000Z",
-      "checked_at": "2026-11-14T23:10:40.326Z",
-      "age_seconds": 17,
+      "observed_at": "2026-11-14T23:20:23.000Z",
+      "checked_at": "2026-11-14T23:20:33.180Z",
+      "age_seconds": 10,
       "status": "recent",
-      "wind_speed_kmh": 4.02336,
+      "wind_speed_kmh": 4.6670976,
       "wind_gust_kmh": 5.4717696,
-      "wind_from_degrees": 141
+      "wind_from_degrees": 116
     },
     {
       "station_id": "IHOUYE15",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE15",
-      "observed_at": "2026-11-14T23:08:23.000Z",
-      "checked_at": "2026-11-14T23:10:40.659Z",
-      "age_seconds": 138,
+      "observed_at": "2026-11-14T23:18:23.000Z",
+      "checked_at": "2026-11-14T23:20:33.487Z",
+      "age_seconds": 130,
       "status": "recent",
-      "wind_speed_kmh": 4.988966400000001,
-      "wind_gust_kmh": 9.656064,
-      "wind_from_degrees": 170
+      "wind_speed_kmh": 6.5983104,
+      "wind_gust_kmh": 11.909145600000002,
+      "wind_from_degrees": 153
     },
     {
       "station_id": "IHOUYE4",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE4",
-      "observed_at": "2026-11-14T23:10:31.000Z",
-      "checked_at": "2026-11-14T23:10:40.894Z",
-      "age_seconds": 10,
+      "observed_at": "2026-11-14T23:20:19.000Z",
+      "checked_at": "2026-11-14T23:20:33.722Z",
+      "age_seconds": 15,
       "status": "recent",
       "wind_speed_kmh": 0,
       "wind_gust_kmh": 0,
-      "wind_from_degrees": 135
+      "wind_from_degrees": 202
     }
   ]
 }
