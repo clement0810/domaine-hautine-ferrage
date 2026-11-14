@@ -1,42 +1,42 @@
 {
-  "generated_at": "2026-11-14T23:20:39.951Z",
+  "generated_at": "2026-11-14T23:30:50.049Z",
   "source": "Weather Underground",
   "observations": [
     {
       "station_id": "IHOUYE10",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE10",
-      "observed_at": "2026-11-14T23:20:23.000Z",
-      "checked_at": "2026-11-14T23:20:33.180Z",
-      "age_seconds": 10,
+      "observed_at": "2026-11-14T23:30:33.000Z",
+      "checked_at": "2026-11-14T23:30:44.339Z",
+      "age_seconds": 11,
       "status": "recent",
-      "wind_speed_kmh": 4.6670976,
+      "wind_speed_kmh": 4.02336,
       "wind_gust_kmh": 5.4717696,
-      "wind_from_degrees": 116
+      "wind_from_degrees": 145
     },
     {
       "station_id": "IHOUYE15",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE15",
-      "observed_at": "2026-11-14T23:18:23.000Z",
-      "checked_at": "2026-11-14T23:20:33.487Z",
-      "age_seconds": 130,
+      "observed_at": "2026-11-14T23:28:23.000Z",
+      "checked_at": "2026-11-14T23:30:44.611Z",
+      "age_seconds": 142,
       "status": "recent",
-      "wind_speed_kmh": 6.5983104,
-      "wind_gust_kmh": 11.909145600000002,
-      "wind_from_degrees": 153
+      "wind_speed_kmh": 6.9201792,
+      "wind_gust_kmh": 14.8059648,
+      "wind_from_degrees": 160
     },
     {
       "station_id": "IHOUYE4",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE4",
-      "observed_at": "2026-11-14T23:20:19.000Z",
-      "checked_at": "2026-11-14T23:20:33.722Z",
-      "age_seconds": 15,
+      "observed_at": "2026-11-14T23:30:31.000Z",
+      "checked_at": "2026-11-14T23:30:44.874Z",
+      "age_seconds": 14,
       "status": "recent",
       "wind_speed_kmh": 0,
       "wind_gust_kmh": 0,
-      "wind_from_degrees": 202
+      "wind_from_degrees": 292
     }
   ]
 }
