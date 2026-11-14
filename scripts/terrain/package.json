@@ -1,0 +1,14 @@
+{
+  "name": "hautine-terrain-prototype",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "sample": "node sample.mjs",
+    "test": "node test.mjs"
+  },
+  "dependencies": {
+    "geotiff": "3.0.5",
+    "proj4": "2.22.0"
+  }
+}

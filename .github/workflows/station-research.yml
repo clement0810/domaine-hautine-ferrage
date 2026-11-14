@@ -1,0 +1,73 @@
+name: Collect wind research snapshots
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '7,17,27,37,47,57 * * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: wind-observations
+  cancel-in-progress: false
+
+jobs:
+  collect:
+    if: vars.TWC_WU_AUTOMATION_APPROVED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install dependencies
+        run: npm ci --prefix scripts/stations
+      - name: Test collector
+        run: npm test --prefix scripts/stations
+      - name: Collect station snapshot
+        id: stations
+        continue-on-error: true
+        run: node scripts/stations/collect.mjs > "$RUNNER_TEMP/station-observations.json"
+      - name: Collect forecast snapshot
+        id: forecast
+        continue-on-error: true
+        run: node scripts/stations/forecast.mjs > "$RUNNER_TEMP/forecast.json"
+      - name: Preserve snapshots
+        if: always() && steps.stations.outcome != 'skipped'
+        uses: actions/upload-artifact@v4
+        with:
+          name: wind-research-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            ${{ runner.temp }}/station-observations.json
+            ${{ runner.temp }}/forecast.json
+          retention-days: 30
+          if-no-files-found: error
+      - name: Check out existing data branch
+        if: steps.stations.outcome != 'skipped' && steps.forecast.outcome != 'skipped'
+        uses: actions/checkout@v4
+        with:
+          path: station-data
+      - name: Update station feed and history
+        if: steps.stations.outcome != 'skipped' && steps.forecast.outcome != 'skipped'
+        run: |
+          if git -C station-data fetch origin refs/heads/wind-observations:refs/remotes/origin/wind-observations; then
+            git -C station-data checkout -B wind-observations refs/remotes/origin/wind-observations
+          else
+            git -C station-data checkout --orphan wind-observations
+            git -C station-data rm -rf --quiet .
+          fi
+          node scripts/stations/feed.mjs "$RUNNER_TEMP/station-observations.json" "$RUNNER_TEMP/forecast.json" station-data
+          git -C station-data config user.name "github-actions[bot]"
+          git -C station-data config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git -C station-data add latest.json history/
+          if ! git -C station-data diff --cached --quiet; then
+            git -C station-data commit -m "Update station observations"
+            git -C station-data push origin HEAD:wind-observations
+          fi
+      - name: Report collection failures
+        if: steps.stations.outcome != 'success' || steps.forecast.outcome != 'success'
+        run: exit 1

@@ -412,6 +412,12 @@
         font-weight: 600;
       }
 
+      .station-observations { list-style: none; margin: 0; padding: 0; font: 0.8rem/1.4 system-ui, sans-serif; }
+      .station-observations li { display: grid; gap: 0.2rem; padding: 0.65rem 0; border-top: 1px solid #c8cbbf; }
+      .station-observations span { color: #536057; }
+      .dark-mode .station-observations li { border-color: #3f3f46; }
+      .dark-mode .station-observations span { color: #bcbcc4; }
+
       .hourly-strip {
         display: grid;
         grid-auto-columns: minmax(74px, 1fr);
@@ -701,6 +707,15 @@
             </table>
           </div>
         </section>
+        <section aria-labelledby="stations-heading">
+          <h3 id="stations-heading" class="forecast-heading">Weerstations in de buurt</h3>
+          <p id="station-status" class="weather-updated" role="status">Nog niet gesynchroniseerd; de collector moet eerst op GitHub draaien.</p>
+          <ul id="station-observations" class="station-observations">
+            <li><strong>Hour</strong><span>Nog niet gesynchroniseerd</span></li>
+            <li><strong>Herhet</strong><span>Nog niet gesynchroniseerd</span></li>
+            <li><strong>Vidocq</strong><span>Nog niet gesynchroniseerd</span></li>
+          </ul>
+        </section>
       </section>
     </main>
 
@@ -755,7 +770,7 @@
         navigator.serviceWorker.register("./sw.js")
           .then(() => navigator.serviceWorker.ready)
           .then(async () => {
-            const cache = await caches.open("hunting-map-v26");
+            const cache = await caches.open("hunting-map-v34");
             const requiredFiles = [
               "./index.html",
               "./app.js",
@@ -767,6 +782,7 @@
               "./vendor/pmtiles/pmtiles.js",
               "./vendor/lineclip/index.js",
               "./data/hunting-data.geojson",
+              "./data/terrain-summary.json",
               "./data/paths.geojson",
               "./data/hautine_full.pmtiles",
               "./images/stands/post_14.jpg",
