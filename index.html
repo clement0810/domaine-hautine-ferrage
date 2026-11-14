@@ -713,7 +713,6 @@
           <ul id="station-observations" class="station-observations">
             <li><strong>Hour</strong><span>Nog niet gesynchroniseerd</span></li>
             <li><strong>Herhet</strong><span>Nog niet gesynchroniseerd</span></li>
-            <li><strong>Vidocq</strong><span>Nog niet gesynchroniseerd</span></li>
           </ul>
         </section>
       </section>
@@ -770,7 +769,7 @@
         navigator.serviceWorker.register("./sw.js")
           .then(() => navigator.serviceWorker.ready)
           .then(async () => {
-            const cache = await caches.open("hunting-map-v35");
+            const cache = await caches.open("hunting-map-v36");
             const requiredFiles = [
               "./index.html",
               "./app.js",

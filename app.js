@@ -93,7 +93,7 @@ const weatherUrl = "https://api.open-meteo.com/v1/forecast?latitude=50.1666&long
 const weatherCacheKey = "hautine_weather_cache";
 const stationFeedUrl = "https://raw.githubusercontent.com/clement0810/domaine-hautine-ferrage/wind-observations/latest.json";
 const stationCacheKey = "hautine_station_observations";
-const stationNames = { IHOUYE10: "Hour", IHOUYE15: "Herhet", IHOUYE4: "Vidocq" };
+const stationNames = { IHOUYE10: "Hour", IHOUYE15: "Herhet" };
 
 function describeWeather(code) {
   if (code === 0) return "Onbewolkt";

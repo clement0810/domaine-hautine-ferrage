@@ -1,4 +1,4 @@
-const CACHE_NAME = "hunting-map-v35";
+const CACHE_NAME = "hunting-map-v36";
 const FILES_TO_CACHE = [
   "./",
   "./index.html",
