@@ -21,5 +21,6 @@ try {
   }, null, 2));
 } catch (error) {
   console.error(error.message);
+  if (error.cause) console.error(error.cause);
   process.exitCode = 1;
 }
