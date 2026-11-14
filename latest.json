@@ -1,42 +1,42 @@
 {
-  "generated_at": "2026-11-14T19:20:42.469Z",
+  "generated_at": "2026-11-14T19:30:56.311Z",
   "source": "Weather Underground",
   "observations": [
     {
       "station_id": "IHOUYE10",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE10",
-      "observed_at": "2026-11-14T19:20:23.000Z",
-      "checked_at": "2026-11-14T19:20:34.037Z",
-      "age_seconds": 11,
+      "observed_at": "2026-11-14T19:30:33.000Z",
+      "checked_at": "2026-11-14T19:30:51.124Z",
+      "age_seconds": 18,
       "status": "recent",
-      "wind_speed_kmh": 1.1265408,
+      "wind_speed_kmh": 0.32186880000000007,
       "wind_gust_kmh": 1.7702784000000003,
-      "wind_from_degrees": 167
+      "wind_from_degrees": 179
     },
     {
       "station_id": "IHOUYE15",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE15",
-      "observed_at": "2026-11-14T19:18:23.000Z",
-      "checked_at": "2026-11-14T19:20:34.337Z",
-      "age_seconds": 131,
+      "observed_at": "2026-11-14T19:28:24.000Z",
+      "checked_at": "2026-11-14T19:30:51.387Z",
+      "age_seconds": 147,
       "status": "recent",
-      "wind_speed_kmh": 6.1155072,
-      "wind_gust_kmh": 8.2076544,
-      "wind_from_degrees": 148
+      "wind_speed_kmh": 7.081113600000001,
+      "wind_gust_kmh": 11.265408,
+      "wind_from_degrees": 149
     },
     {
       "station_id": "IHOUYE4",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE4",
-      "observed_at": "2026-11-14T19:20:30.000Z",
-      "checked_at": "2026-11-14T19:20:34.790Z",
-      "age_seconds": 5,
+      "observed_at": "2026-11-14T19:30:43.000Z",
+      "checked_at": "2026-11-14T19:30:51.605Z",
+      "age_seconds": 9,
       "status": "recent",
       "wind_speed_kmh": 0,
       "wind_gust_kmh": 0,
-      "wind_from_degrees": 248
+      "wind_from_degrees": 225
     }
   ]
 }
