@@ -463,11 +463,24 @@ const protocol = new globalThis.pmtiles.Protocol();
 const maplibregl = globalThis.maplibregl;
 maplibregl.addProtocol("pmtiles", protocol.tile);
 
+const mapViewStorageKey = "hautine_map_view";
+let savedMapView;
+try {
+  const view = JSON.parse(localStorage.getItem(mapViewStorageKey));
+  if (Number.isFinite(view?.longitude) && view.longitude >= -180 && view.longitude <= 180 &&
+      Number.isFinite(view.latitude) && Math.abs(view.latitude) <= 85 &&
+      Number.isFinite(view.zoom) && view.zoom >= 12 && view.zoom <= 17) {
+    savedMapView = view;
+  }
+} catch (error) {
+  console.warn("Saved map view unavailable:", error);
+}
+
 const archiveUrl = new URL("./data/hautine_full.pmtiles", document.baseURI).href;
 const map = new maplibregl.Map({
   container: "map",
-  center: [MAP_CENTER.longitude, MAP_CENTER.latitude],
-  zoom: 12,
+  center: savedMapView ? [savedMapView.longitude, savedMapView.latitude] : [MAP_CENTER.longitude, MAP_CENTER.latitude],
+  zoom: savedMapView?.zoom ?? 12,
   minZoom: 12,
   maxZoom: 17,
   attributionControl: false,
@@ -483,6 +496,31 @@ const map = new maplibregl.Map({
     },
     layers: [{ id: "territory-imagery", type: "raster", source: "territory" }],
   },
+});
+
+let mapViewSaveTimer;
+function saveMapView() {
+  clearTimeout(mapViewSaveTimer);
+  mapViewSaveTimer = undefined;
+  const center = map.getCenter().wrap();
+  try {
+    localStorage.setItem(mapViewStorageKey, JSON.stringify({
+      longitude: center.lng,
+      latitude: center.lat,
+      zoom: map.getZoom(),
+    }));
+  } catch (error) {
+    console.warn("Map view could not be saved:", error);
+  }
+}
+
+map.on("move", () => {
+  if (mapViewSaveTimer === undefined) mapViewSaveTimer = setTimeout(saveMapView, 500);
+});
+map.on("moveend", saveMapView);
+window.addEventListener("pagehide", saveMapView);
+document.addEventListener("visibilitychange", () => {
+  if (document.hidden) saveMapView();
 });
 
 const themeToggle = document.querySelector("#theme-toggle");
