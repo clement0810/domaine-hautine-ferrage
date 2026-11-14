@@ -5,6 +5,10 @@ data/*.mbtiles
 data/hautine.pmtiles
 data/pilot.pmtiles
 
+# Large source elevation rasters; keep locally and regenerate derived summaries.
+relief_beauraing/
+relief_houyet/
+
 images/stands/*
 !images/stands/README.md
 !images/stands/post_14.jpg

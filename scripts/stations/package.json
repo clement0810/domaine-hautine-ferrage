@@ -1,0 +1,16 @@
+{
+  "name": "hautine-station-observations",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "collect": "node collect.mjs",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "cheerio": "1.0.0"
+  },
+  "engines": {
+    "node": ">=20.18.1"
+  }
+}

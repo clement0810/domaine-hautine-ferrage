@@ -1,0 +1,309 @@
+{
+  "source": "ESA WorldCover 2021 v200, 10 m, CC BY 4.0",
+  "attribution": "ESA WorldCover project 2021 / Contains modified Copernicus Sentinel data (2021) processed by ESA WorldCover consortium",
+  "citation": "https://doi.org/10.5281/zenodo.7254221",
+  "source_url": "https://esa-worldcover.s3.eu-central-1.amazonaws.com/v200/2021/map/ESA_WorldCover_10m_2021_v200_N48E003_Map.tif",
+  "method": "Class at the pixel containing each point; no local accuracy validation or wind inference.",
+  "points": [
+    {
+      "name": "14",
+      "type": "stand",
+      "coordinates": [
+        4.9805835,
+        50.166289
+      ],
+      "class_code": 10,
+      "land_cover": "tree cover"
+    },
+    {
+      "name": "27",
+      "type": "stand",
+      "coordinates": [
+        4.9807636,
+        50.1663597
+      ],
+      "class_code": 10,
+      "land_cover": "tree cover"
+    },
+    {
+      "name": "Unnamed Post_1",
+      "type": "stand",
+      "coordinates": [
+        4.981076,
+        50.1658821
+      ],
+      "class_code": 10,
+      "land_cover": "tree cover"
+    },
+    {
+      "name": "20H",
+      "type": "stand",
+      "coordinates": [
+        4.9815542,
+        50.1666557
+      ],
+      "class_code": 10,
+      "land_cover": "tree cover"
+    },
+    {
+      "name": "9L",
+      "type": "stand",
+      "coordinates": [
+        4.9821114,
+        50.1660232
+      ],
+      "class_code": 10,
+      "land_cover": "tree cover"
+    },
+    {
+      "name": "19H",
+      "type": "stand",
+      "coordinates": [
+        4.9821017,
+        50.1660616
+      ],
+      "class_code": 10,
+      "land_cover": "tree cover"
+    },
+    {
+      "name": "18H",
+      "type": "stand",
+      "coordinates": [
+        4.982801,
+        50.1654858
+      ],
+      "class_code": 10,
+      "land_cover": "tree cover"
+    },
+    {
+      "name": "17H",
+      "type": "stand",
+      "coordinates": [
+        4.9836097,
+        50.1648855
+      ],
+      "class_code": 10,
+      "land_cover": "tree cover"
+    },
+    {
+      "name": "12L",
+      "type": "stand",
+      "coordinates": [
+        4.9839413,
+        50.164587
+      ],
+      "class_code": 10,
+      "land_cover": "tree cover"
+    },
+    {
+      "name": "13L",
+      "type": "stand",
+      "coordinates": [
+        4.9843443,
+        50.1641529
+      ],
+      "class_code": 10,
+      "land_cover": "tree cover"
+    },
+    {
+      "name": "8L",
+      "type": "stand",
+      "coordinates": [
+        4.9896202,
+        50.1645791
+      ],
+      "class_code": 10,
+      "land_cover": "tree cover"
+    },
+    {
+      "name": "La Petite Golette",
+      "type": "stand",
+      "coordinates": [
+        4.9855356,
+        50.1660356
+      ],
+      "class_code": 10,
+      "land_cover": "tree cover"
+    },
+    {
+      "name": "15H",
+      "type": "stand",
+      "coordinates": [
+        4.9852248,
+        50.1633557
+      ],
+      "class_code": 10,
+      "land_cover": "tree cover"
+    },
+    {
+      "name": "14L",
+      "type": "stand",
+      "coordinates": [
+        4.9851704,
+        50.1632481
+      ],
+      "class_code": 10,
+      "land_cover": "tree cover"
+    },
+    {
+      "name": "14H",
+      "type": "stand",
+      "coordinates": [
+        4.9856512,
+        50.1630221
+      ],
+      "class_code": 10,
+      "land_cover": "tree cover"
+    },
+    {
+      "name": "12H",
+      "type": "stand",
+      "coordinates": [
+        4.9876163,
+        50.1624689
+      ],
+      "class_code": 10,
+      "land_cover": "tree cover"
+    },
+    {
+      "name": "17L",
+      "type": "stand",
+      "coordinates": [
+        4.986594,
+        50.1619465
+      ],
+      "class_code": 10,
+      "land_cover": "tree cover"
+    },
+    {
+      "name": "16L",
+      "type": "stand",
+      "coordinates": [
+        4.9861746,
+        50.1623471
+      ],
+      "class_code": 10,
+      "land_cover": "tree cover"
+    },
+    {
+      "name": "13H",
+      "type": "stand",
+      "coordinates": [
+        4.9864556,
+        50.1625973
+      ],
+      "class_code": 10,
+      "land_cover": "tree cover"
+    },
+    {
+      "name": "15L",
+      "type": "stand",
+      "coordinates": [
+        4.9855731,
+        50.1628651
+      ],
+      "class_code": 10,
+      "land_cover": "tree cover"
+    },
+    {
+      "name": "P3",
+      "type": "parking",
+      "coordinates": [
+        4.984637,
+        50.1640071
+      ],
+      "class_code": 10,
+      "land_cover": "tree cover"
+    },
+    {
+      "name": "P2",
+      "type": "parking",
+      "coordinates": [
+        4.9819206,
+        50.1681646
+      ],
+      "class_code": 10,
+      "land_cover": "tree cover"
+    },
+    {
+      "name": "Unnamed Post_3",
+      "type": "stand",
+      "coordinates": [
+        4.977034,
+        50.1686954
+      ],
+      "class_code": 10,
+      "land_cover": "tree cover"
+    },
+    {
+      "name": "Parking (Bosrand)",
+      "type": "parking",
+      "coordinates": [
+        4.9769495,
+        50.1710218
+      ],
+      "class_code": 10,
+      "land_cover": "tree cover"
+    },
+    {
+      "name": "Parking (Beneden Monument)",
+      "type": "parking",
+      "coordinates": [
+        4.9721567,
+        50.161962
+      ],
+      "class_code": 10,
+      "land_cover": "tree cover"
+    },
+    {
+      "name": "Unnamed Post_4",
+      "type": "stand",
+      "coordinates": [
+        4.9730945,
+        50.1613767
+      ],
+      "class_code": 10,
+      "land_cover": "tree cover"
+    },
+    {
+      "name": "18L",
+      "type": "stand",
+      "coordinates": [
+        4.9856459,
+        50.1616181
+      ],
+      "class_code": 10,
+      "land_cover": "tree cover"
+    },
+    {
+      "name": "Mirador (Vijvers)",
+      "type": "stand",
+      "coordinates": [
+        4.9826897,
+        50.1604099
+      ],
+      "class_code": 10,
+      "land_cover": "tree cover"
+    },
+    {
+      "name": "Unnamed Post_5",
+      "type": "stand",
+      "coordinates": [
+        4.9859496,
+        50.1628802
+      ],
+      "class_code": 10,
+      "land_cover": "tree cover"
+    },
+    {
+      "name": "Unnamed Post_6",
+      "type": "stand",
+      "coordinates": [
+        4.9906111,
+        50.1640556
+      ],
+      "class_code": 10,
+      "land_cover": "tree cover"
+    }
+  ]
+}

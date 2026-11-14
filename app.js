@@ -91,6 +91,9 @@ const weatherElements = {
 
 const weatherUrl = "https://api.open-meteo.com/v1/forecast?latitude=50.1666&longitude=4.9790&current=temperature_2m,weather_code,wind_speed_10m,wind_direction_10m&hourly=temperature_2m,weather_code,wind_speed_10m,rain&daily=sunrise,sunset,temperature_2m_max,temperature_2m_min,weather_code&timezone=Europe%2FBrussels&forecast_days=3";
 const weatherCacheKey = "hautine_weather_cache";
+const stationFeedUrl = "https://raw.githubusercontent.com/clement0810/domaine-hautine-ferrage/wind-observations/latest.json";
+const stationCacheKey = "hautine_station_observations";
+const stationNames = { IHOUYE10: "Hour", IHOUYE15: "Herhet", IHOUYE4: "Vidocq" };
 
 function describeWeather(code) {
   if (code === 0) return "Onbewolkt";
@@ -156,8 +159,8 @@ function markerColorForFeature(feature) {
   return "#ef4444";
 }
 
-const DEFAULT_WIND_FROM_DEGREES = 270;
 const EARTH_RADIUS_METERS = 6371008.8;
+const MAX_WIND_AGE_MS = 3 * 60 * 60 * 1000;
 
 function readCachedWind() {
   try {
@@ -165,22 +168,27 @@ function readCachedWind() {
     const data = stored?.data ?? stored;
     const direction = data?.current?.wind_direction_10m;
     const speed = data?.current?.wind_speed_10m;
-    const hasDirection = Number.isFinite(direction);
+    const fetchedAt = stored?.timestamp ?? data?.fetched_at ?? null;
+    const validTime = data?.current?.time;
+    const offsetSeconds = data?.utc_offset_seconds;
+    const validAt = typeof validTime === "string" && Number.isFinite(offsetSeconds)
+      ? Date.parse(`${validTime}Z`) - offsetSeconds * 1000 : NaN;
+    const fetchedTime = Date.parse(fetchedAt);
+    const now = Date.now();
+    const isFresh = Number.isFinite(validAt) && Number.isFinite(fetchedTime)
+      && now - validAt >= -15 * 60 * 1000 && now - validAt <= MAX_WIND_AGE_MS
+      && now - fetchedTime >= -15 * 60 * 1000 && now - fetchedTime <= MAX_WIND_AGE_MS;
+    const hasDirection = Number.isFinite(direction) && direction >= 0 && direction <= 360;
     return {
-      from: hasDirection ? direction : DEFAULT_WIND_FROM_DEGREES,
-      to: ((hasDirection ? direction : DEFAULT_WIND_FROM_DEGREES) + 180) % 360,
-      speed: Number.isFinite(speed) ? speed : null,
-      fetchedAt: stored?.timestamp ?? data?.fetched_at ?? null,
-      isDefault: !hasDirection,
+      from: hasDirection ? direction : null,
+      to: hasDirection ? (direction + 180) % 360 : null,
+      speed: Number.isFinite(speed) && speed >= 0 ? speed : null,
+      fetchedAt,
+      validAt,
+      isFresh,
     };
   } catch {
-    return {
-      from: DEFAULT_WIND_FROM_DEGREES,
-      to: (DEFAULT_WIND_FROM_DEGREES + 180) % 360,
-      speed: null,
-      fetchedAt: null,
-      isDefault: true,
-    };
+    return { from: null, to: null, speed: null, fetchedAt: null, validAt: NaN, isFresh: false };
   }
 }
 
@@ -221,8 +229,9 @@ function createScentConeGeometry(coordinates, downwindBearing, radiusMeters = 10
   return {
     type: "FeatureCollection",
     features: [
-      sectorFeature("hazard", downwindBearing - 15, 30, 12),
-      sectorFeature("safe", downwindBearing + 15, 330, 66),
+      downwindBearing === null
+        ? sectorFeature("uncertain", 0, 360, 72)
+        : sectorFeature("hazard", downwindBearing - 15, 30, 12),
     ],
   };
 }
@@ -375,6 +384,54 @@ async function loadWeather() {
   }
 }
 
+async function loadStationObservations() {
+  const status = document.querySelector("#station-status");
+  const list = document.querySelector("#station-observations");
+  status.textContent = "Waarnemingen ophalen...";
+  let snapshot;
+  let cached = false;
+  try {
+    const response = await fetch(stationFeedUrl, { cache: "no-store", signal: AbortSignal.timeout(10000) });
+    if (!response.ok) throw new Error(`Station feed HTTP ${response.status}`);
+    snapshot = await response.json();
+    if (!Array.isArray(snapshot.observations) || !Number.isFinite(Date.parse(snapshot.generated_at))) throw new Error("Invalid station feed");
+    try { localStorage.setItem(stationCacheKey, JSON.stringify(snapshot)); } catch (error) { console.warn("Station cache unavailable:", error); }
+  } catch (error) {
+    try { snapshot = JSON.parse(localStorage.getItem(stationCacheKey)); } catch { snapshot = null; }
+    cached = true;
+  }
+  list.replaceChildren();
+  const observations = Array.isArray(snapshot?.observations) ? snapshot.observations : [];
+  const generated = Date.parse(snapshot?.generated_at);
+  status.textContent = observations.length
+    ? `${cached ? "Opgeslagen snapshot" : "Snapshot"}: ${Number.isFinite(generated) ? new Intl.DateTimeFormat("nl-BE", { dateStyle: "medium", timeStyle: "short" }).format(new Date(generated)) : "onbekend"} · Weather Underground`
+    : "Nog niet gesynchroniseerd. De collector verschijnt nadat GitHub Actions de eerste keer heeft gedraaid.";
+  for (const stationId of Object.keys(stationNames)) {
+    const observation = observations.find(entry => entry?.station_id === stationId);
+    const item = document.createElement("li");
+    const name = document.createElement("strong");
+    name.textContent = stationNames[stationId];
+    const detail = document.createElement("span");
+    const time = Date.parse(observation?.observed_at);
+    const age = Date.now() - time;
+    const validSpeed = Number.isFinite(observation?.wind_speed_kmh) && observation.wind_speed_kmh >= 0 && observation.wind_speed_kmh <= 250;
+    const direction = observation?.wind_from_degrees;
+    const validDirection = Number.isFinite(direction) && direction >= 0 && direction < 360;
+    if (!observation) {
+      detail.textContent = "Nog niet gesynchroniseerd";
+    } else if (!Number.isFinite(time) || !validSpeed || observation.status === "unavailable") {
+      detail.textContent = "Niet beschikbaar bij laatste synchronisatie";
+    } else {
+      const freshness = observation.status !== "recent" || age > 30 * 60 * 1000 || age < -5 * 60 * 1000 ? "verouderd of onzeker" : "recent";
+      const directionText = validDirection && observation.wind_speed_kmh >= 5 ? `uit ${windDirection(direction)} (${Math.round(direction)}°)` : "richting onzeker";
+      const observedAt = new Intl.DateTimeFormat("nl-BE", { dateStyle: "medium", timeStyle: "short" }).format(new Date(time));
+      detail.textContent = `${Math.round(observation.wind_speed_kmh)} km/u · ${directionText} · ${observedAt} · ${freshness}`;
+    }
+    item.append(name, detail);
+    list.append(item);
+  }
+}
+
 function selectView(view) {
   const showWeather = view === "weather";
   document.querySelector("#map").hidden = showWeather;
@@ -384,6 +441,7 @@ function selectView(view) {
   if (showWeather) {
     hideFeatureSheet();
     loadWeather();
+    loadStationObservations();
   } else {
     map?.resize();
   }
@@ -515,6 +573,26 @@ function showFeatureSheet(event) {
   type.textContent = isParking ? "Parkeerplaats" : isBattuePost ? "Battue Post" : "Jachtpost / mirador";
   content.append(type);
 
+  if (isStand) {
+    const terrainInfo = document.createElement("p");
+    terrainInfo.className = "bottom-sheet-type";
+    content.append(terrainInfo);
+    fetch("./data/terrain-summary.json")
+      .then((response) => {
+        if (!response.ok) throw new Error(`Terrein ophalen mislukt (${response.status})`);
+        return response.json();
+      })
+      .then((terrain) => {
+        const [longitude, latitude] = feature.geometry.coordinates;
+        const point = terrain.points?.find((entry) => entry.name === properties.name && entry.type === properties.type
+          && Math.abs(entry.coordinates[0] - longitude) < 0.00001 && Math.abs(entry.coordinates[1] - latitude) < 0.00001);
+        if (Number.isFinite(point?.combined?.elevation_m)) {
+          terrainInfo.textContent = `Terreinhoogte: ${Math.round(point.combined.elevation_m)} m · SPW Wallonie (CC BY 4.0)`;
+        }
+      })
+      .catch((error) => console.warn("Terrain data unavailable:", error));
+  }
+
   if (properties.type === "stand" && properties.image) {
     const image = document.createElement("img");
     image.className = "stand-photo";
@@ -533,25 +611,28 @@ function showFeatureSheet(event) {
     const windSummary = document.createElement("p");
     windSummary.className = "wind-advice-reading";
     const speedText = wind.speed === null ? "snelheid onbekend" : `${Math.round(wind.speed)} km/u`;
-    windSummary.textContent = wind.isDefault
-      ? `Wind uit ${windDirection(wind.from)} (${Math.round(wind.from)}°), ${speedText} · standaardwaarde`
-      : `Wind uit ${windDirection(wind.from)} (${Math.round(wind.from)}°), ${speedText}`;
+    windSummary.textContent = wind.from === null
+      ? "Geen windverwachting beschikbaar."
+      : `Open-Meteo verwachting: wind uit ${windDirection(wind.from)} (${Math.round(wind.from)}°), ${speedText}`;
     const drift = document.createElement("p");
     drift.className = "wind-advice-drift";
-    drift.textContent = `Rood: 30° directe geurdrift naar ${windDirection(wind.to)} (${Math.round(wind.to)}°), straal 100 m.`;
-    const safeSector = document.createElement("p");
-    safeSector.className = "wind-advice-safe";
-    safeSector.textContent = "Groen: overige 330° buiten de directe geurdrift.";
+    const formatTime = (time) => Number.isFinite(time)
+      ? new Intl.DateTimeFormat("nl-BE", { dateStyle: "medium", timeStyle: "short" }).format(new Date(time)) : "onbekend";
+    drift.textContent = `Geldig: ${formatTime(wind.validAt)} · Opgehaald: ${formatTime(Date.parse(wind.fetchedAt))}`;
     const recommendation = document.createElement("p");
     recommendation.className = "wind-advice-recommendation";
-    if (wind.isDefault) {
-      recommendation.textContent = "Geen opgeslagen windgegevens; controleer de wind ter plaatse.";
-    } else if (wind.speed !== null && wind.speed < 5) {
-      recommendation.textContent = "Weinig wind: geur kan onvoorspelbaar verspreiden. Controleer de wind ter plaatse.";
+    if (wind.from === null) {
+      recommendation.textContent = "Windrichting onbekend: de gele cirkel toont geen windrichting of veilige zone. Controleer de wind ter plaatse.";
+    } else if (!wind.isFresh) {
+      recommendation.textContent = "De rode richting is een oude of ongedateerde verwachting en kan sterk afwijken. Ververs de meteo en controleer ter plaatse.";
+    } else if (wind.speed === null) {
+      recommendation.textContent = "Windsnelheid onbekend; de rode richting is onzeker. Controleer de wind ter plaatse.";
+    } else if (wind.speed < 5) {
+      recommendation.textContent = "Weinig wind: de rode richting en geurverspreiding zijn erg onzeker. Controleer de wind ter plaatse.";
     } else {
-      recommendation.textContent = `De groene sector toont mogelijke benaderingsrichtingen. Benader indien mogelijk vanaf de loefzijde (${windDirection(wind.from)}); controleer de wind ter plaatse.`;
+      recommendation.textContent = `Rood toont indicatief de richting naar ${windDirection(wind.to)} (30°, 100 m), geen veilige grens. Wind en geur kunnen lokaal afwijken; controleer ter plaatse.`;
     }
-    adviceSection.append(adviceHeading, windSummary, drift, safeSector, recommendation);
+    adviceSection.append(adviceHeading, windSummary, drift, recommendation);
     content.append(adviceSection);
   }
 
@@ -672,29 +753,13 @@ map.on("load", async () => {
       id: "scent-hazard-layer",
       type: "fill",
       source: "scent-cone-source",
-      filter: ["==", ["get", "sector"], "hazard"],
-      paint: { "fill-color": "rgba(239, 68, 68, 0.25)" },
+      paint: { "fill-color": ["match", ["get", "sector"], "uncertain", "rgba(234, 179, 8, 0.15)", "rgba(239, 68, 68, 0.25)"] },
     });
     map.addLayer({
       id: "scent-hazard-outline",
       type: "line",
       source: "scent-cone-source",
-      filter: ["==", ["get", "sector"], "hazard"],
-      paint: { "line-color": "#ef4444", "line-width": 2, "line-dasharray": [2, 1.5] },
-    });
-    map.addLayer({
-      id: "scent-safe-layer",
-      type: "fill",
-      source: "scent-cone-source",
-      filter: ["==", ["get", "sector"], "safe"],
-      paint: { "fill-color": "rgba(34, 197, 94, 0.2)" },
-    });
-    map.addLayer({
-      id: "scent-safe-outline",
-      type: "line",
-      source: "scent-cone-source",
-      filter: ["==", ["get", "sector"], "safe"],
-      paint: { "line-color": "#16a34a", "line-width": 1, "line-opacity": 0.65 },
+      paint: { "line-color": ["match", ["get", "sector"], "uncertain", "#eab308", "#ef4444"], "line-width": 2, "line-dasharray": [2, 1.5] },
     });
     map.addLayer({
       id: "shooting-zone-fill",
