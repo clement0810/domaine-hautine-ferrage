@@ -3,7 +3,7 @@ name: Collect wind research snapshots
 on:
   workflow_dispatch:
   schedule:
-    - cron: '7,17,27,37,47,57 * * * *'
+    - cron: '3,13,23,33,43,53 * * * *'
 
 permissions:
   contents: write
