@@ -14,6 +14,13 @@ test('reads metric observation and UTC timestamp', () => {
   assert.equal(result.status, 'recent');
 });
 
+test('converts imperial wind speeds and gusts to km/h', () => {
+  const result = parseStationPage(html({ unit: 'e', speed: '10' }), 'IHOUYE10', now);
+  assert.equal(result.wind_speed_kmh, 10 * 1.609344);
+  assert.equal(result.wind_gust_kmh, 1.8 * 1.609344);
+  assert.throws(() => parseStationPage(html({ unit: 'e', speed: '200' }), 'IHOUYE10', now));
+});
+
 test('flags old, future and disconnected observations', () => {
   assert.equal(parseStationPage(html(), 'IHOUYE10', new Date('2026-11-11T18:00:00Z')).status, 'stale');
   assert.equal(parseStationPage(html(), 'IHOUYE10', new Date('2026-11-11T17:00:00Z')).status, 'future');
@@ -21,7 +28,7 @@ test('flags old, future and disconnected observations', () => {
 });
 
 test('rejects invalid units, timestamps, speeds and station IDs', () => {
-  assert.throws(() => parseStationPage(html({ unit: 'e' }), 'IHOUYE10', now));
+  assert.throws(() => parseStationPage(html({ unit: 'unknown' }), 'IHOUYE10', now));
   assert.throws(() => parseStationPage(html({ time: 'invalid' }), 'IHOUYE10', now));
   assert.throws(() => parseStationPage(html({ speed: '' }), 'IHOUYE10', now));
   assert.throws(() => parseStationPage(html({ direction: '999' }), 'IHOUYE10', now));
