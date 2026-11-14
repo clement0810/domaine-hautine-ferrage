@@ -4,8 +4,8 @@
 
 - The PWA uses an Open-Meteo regional forecast. Its red cone is an indicative fixed 30-degree, 100 m sector; an unknown direction shows a yellow uncertainty ring. Station readings do not steer the cone.
 - The public station-page collector can read Hour (`IHOUYE10`), Herhet (`IHOUYE15`) and Vidocq (`IHOUYE4`). A local, timestamp-aware comparison script keeps observations separate from forecasts.
-- The optional GitHub Actions workflow can store a latest snapshot and daily JSONL history on a separate public `wind-observations` branch. That branch is not created yet. GitHub Actions artifacts alone are private/authenticated workflow outputs and are not an app data endpoint.
-- GitHub Actions collection is gated by repository variable `TWC_WU_AUTOMATION_APPROVED=true`. Station-owner permission is not necessarily permission to automate extraction from Weather Underground, modify/derive its feed data, or redistribute it publicly. Set the variable only after confirming those rights directly with The Weather Company. The repository and data branch are public.
+- The GitHub Actions workflow collects a latest snapshot and daily JSONL history on the public `wind-observations` branch, with a 10-minute schedule. A manual run successfully recorded all three stations and a separate forecast; some earlier forecast requests failed intermittently. GitHub Actions artifacts alone are private/authenticated workflow outputs and are not an app data endpoint.
+- The user has confirmed permission, and the repository variable `TWC_WU_AUTOMATION_APPROVED=true` enables collection. The repository and data branch are public; verify that any additional data sources also permit the intended automated use and publication.
 - ESA WorldCover 2021 v200 samples the 10 m pixel containing each of the 30 mapped points. All currently classify as tree cover. This is a coarse, dated land-cover reference, not verification of local canopy, shelter, or current vegetation.
 - The supplied 1 m SPW terrain rasters produce elevations and slope/aspect samples at the posts. The app displays elevation as context only.
 - WindNinja 4.0.0 has been run for eight directions at 5 m/s with a uniform tree assumption, plus one uniform grass comparison. These are assumption-sensitivity experiments, not validated predictions. The existing map-area domain is no-data-free but excludes the observation stations.
@@ -21,9 +21,7 @@ Show the forecast-based cone with source/time and retain it for calm or stale fo
 
 ### 2. Confirm data-use rights and enable collection
 
-Before enabling automated Weather Underground page collection, obtain confirmation that the permitted use covers automated fetching, retention, comparison/derivation and public redistribution. The station owners' permission is important but does not by itself settle the platform's terms. If those rights are not available, request a direct feed from station owners or use an authorized provider.
-
-After rights are clear, enable GitHub Actions in repository settings, add repository variable `TWC_WU_AUTOMATION_APPROVED=true`, and run the workflow manually once. It initializes `wind-observations` if needed and stores timestamped observations and forecast snapshots. Review Actions run logs/artifacts and the raw branch feed. The schedule is 10 minutes; GitHub may delay runs and disables schedules for inactive public repositories after 60 days.
+Permission has been confirmed and collection is enabled. Monitor successive scheduled runs, timestamps and the public feed, including intermittent forecast failures. GitHub may delay runs and disables schedules for inactive public repositories after 60 days. If access or permission changes, disable the variable and use an authorized alternative.
 
 **Acceptance:** repeated successful runs update `latest.json` and append daily history; unavailable stations are recorded as unavailable, not omitted; timestamps and status are preserved; the PWA falls back to localStorage offline.
 
@@ -52,6 +50,14 @@ Run controlled uniform-grass, uniform-trees and other defensible scenarios. Trea
 Acquire matching station observations and forecast forcing, with compatible timestamps, wind averaging period and height above ground/vegetation. Run held-out cases across several wind speeds and directions. Compare WindNinja output at independent stations and separately at posts. Report speed bias/MAE, gust limitations, circular direction error, valid sample counts and uncertainty. Stations used to drive a run cannot also count as independent validation points.
 
 **Acceptance:** complete inputs, repeatable runs, independent held-out observations and a documented improvement over the unadjusted forecast. Until then, keep WindNinja outputs research-only and out of the cone.
+
+## Inputs Needed
+
+- Exact coordinates, sensor heights and exposure details for Hour, Herhet and Vidocq, including nearby buildings, trees and terrain. Obtain owner approval before sharing precise private locations; rounded or approximate positions are insufficient for point validation.
+- A way to obtain observations at one or more hunting posts independent of the model inputs, ideally with sensor position, height, exposure and observation times. Station agreement alone does not validate wind at the posts.
+- Access to any additional SPW elevation tiles covering the stations and a buffered model domain, or permission to use an openly licensed coarser DEM if complete 1 m coverage is unavailable. Record source, resolution, CRS and vertical datum; do not silently fill gaps.
+- Any available recent, licensed land-cover or canopy information for the property, including tree heights and notable open areas. Satellite land-cover classes alone do not measure canopy height or shelter.
+- Agreement on how long and in which weather conditions to collect independent observations, and on a practical accuracy threshold before showing model-adjusted information in the app.
 
 ## Reproducible Checks
 

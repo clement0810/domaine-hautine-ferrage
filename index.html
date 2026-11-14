@@ -770,7 +770,7 @@
         navigator.serviceWorker.register("./sw.js")
           .then(() => navigator.serviceWorker.ready)
           .then(async () => {
-            const cache = await caches.open("hunting-map-v34");
+            const cache = await caches.open("hunting-map-v35");
             const requiredFiles = [
               "./index.html",
               "./app.js",
