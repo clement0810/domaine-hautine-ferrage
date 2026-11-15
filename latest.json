@@ -1,42 +1,42 @@
 {
-  "generated_at": "2026-11-15T03:30:49.703Z",
+  "generated_at": "2026-11-15T03:40:40.488Z",
   "source": "Weather Underground",
   "observations": [
     {
       "station_id": "IHOUYE10",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE10",
-      "observed_at": "2026-11-15T03:30:33.000Z",
-      "checked_at": "2026-11-15T03:30:42.472Z",
-      "age_seconds": 9,
+      "observed_at": "2026-11-15T03:40:23.000Z",
+      "checked_at": "2026-11-15T03:40:33.679Z",
+      "age_seconds": 11,
       "status": "recent",
-      "wind_speed_kmh": 4.345228800000001,
+      "wind_speed_kmh": 4.02336,
       "wind_gust_kmh": 5.4717696,
-      "wind_from_degrees": 138
+      "wind_from_degrees": 141
     },
     {
       "station_id": "IHOUYE15",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE15",
-      "observed_at": "2026-11-15T03:28:23.000Z",
-      "checked_at": "2026-11-15T03:30:42.806Z",
-      "age_seconds": 140,
+      "observed_at": "2026-11-15T03:38:22.000Z",
+      "checked_at": "2026-11-15T03:40:33.991Z",
+      "age_seconds": 132,
       "status": "recent",
-      "wind_speed_kmh": 7.563916800000001,
-      "wind_gust_kmh": 12.713817600000002,
-      "wind_from_degrees": 168
+      "wind_speed_kmh": 5.793638400000001,
+      "wind_gust_kmh": 9.656064,
+      "wind_from_degrees": 141
     },
     {
       "station_id": "IHOUYE4",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE4",
-      "observed_at": "2026-11-15T03:30:31.000Z",
-      "checked_at": "2026-11-15T03:30:43.353Z",
-      "age_seconds": 12,
+      "observed_at": "2026-11-15T03:40:31.000Z",
+      "checked_at": "2026-11-15T03:40:34.662Z",
+      "age_seconds": 4,
       "status": "recent",
-      "wind_speed_kmh": 2.7358848,
-      "wind_gust_kmh": 2.7358848,
-      "wind_from_degrees": 338
+      "wind_speed_kmh": 1.7702784000000003,
+      "wind_gust_kmh": 1.7702784000000003,
+      "wind_from_degrees": 248
     }
   ]
 }
