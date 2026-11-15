@@ -1,42 +1,42 @@
 {
-  "generated_at": "2026-11-15T15:50:36.850Z",
+  "generated_at": "2026-11-15T16:00:59.236Z",
   "source": "Weather Underground",
   "observations": [
     {
       "station_id": "IHOUYE10",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE10",
-      "observed_at": "2026-11-15T15:50:19.000Z",
-      "checked_at": "2026-11-15T15:50:31.491Z",
-      "age_seconds": 12,
+      "observed_at": "2026-11-15T16:00:42.000Z",
+      "checked_at": "2026-11-15T16:00:52.306Z",
+      "age_seconds": 10,
       "status": "recent",
-      "wind_speed_kmh": 3.5405568000000005,
+      "wind_speed_kmh": 6.437376,
       "wind_gust_kmh": 7.2420480000000005,
-      "wind_from_degrees": 194
+      "wind_from_degrees": 150
     },
     {
       "station_id": "IHOUYE15",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE15",
-      "observed_at": "2026-11-15T15:48:20.000Z",
-      "checked_at": "2026-11-15T15:50:31.720Z",
-      "age_seconds": 132,
+      "observed_at": "2026-11-15T15:58:20.000Z",
+      "checked_at": "2026-11-15T16:00:52.615Z",
+      "age_seconds": 153,
       "status": "recent",
-      "wind_speed_kmh": 12.07008,
-      "wind_gust_kmh": 21.8870784,
-      "wind_from_degrees": 172
+      "wind_speed_kmh": 11.4263424,
+      "wind_gust_kmh": 19.6339968,
+      "wind_from_degrees": 167
     },
     {
       "station_id": "IHOUYE4",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE4",
-      "observed_at": "2026-11-15T15:50:19.000Z",
-      "checked_at": "2026-11-15T15:50:31.944Z",
-      "age_seconds": 13,
+      "observed_at": "2026-11-15T16:00:42.000Z",
+      "checked_at": "2026-11-15T16:00:52.932Z",
+      "age_seconds": 11,
       "status": "recent",
       "wind_speed_kmh": 0,
       "wind_gust_kmh": 0,
-      "wind_from_degrees": 225
+      "wind_from_degrees": 292
     }
   ]
 }
