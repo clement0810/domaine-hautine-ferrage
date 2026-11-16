@@ -1,42 +1,42 @@
 {
-  "generated_at": "2026-11-16T22:20:38.191Z",
+  "generated_at": "2026-11-16T22:30:48.286Z",
   "source": "Weather Underground",
   "observations": [
     {
       "station_id": "IHOUYE10",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE10",
-      "observed_at": "2026-11-16T22:20:24.000Z",
-      "checked_at": "2026-11-16T22:20:32.218Z",
-      "age_seconds": 8,
+      "observed_at": "2026-11-16T22:30:39.000Z",
+      "checked_at": "2026-11-16T22:30:42.258Z",
+      "age_seconds": 3,
       "status": "recent",
-      "wind_speed_kmh": 0,
-      "wind_gust_kmh": 0,
-      "wind_from_degrees": 231
+      "wind_speed_kmh": 1.7702784000000003,
+      "wind_gust_kmh": 1.7702784000000003,
+      "wind_from_degrees": 252
     },
     {
       "station_id": "IHOUYE15",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE15",
-      "observed_at": "2026-11-16T22:18:14.000Z",
-      "checked_at": "2026-11-16T22:20:32.464Z",
-      "age_seconds": 138,
+      "observed_at": "2026-11-16T22:28:15.000Z",
+      "checked_at": "2026-11-16T22:30:42.584Z",
+      "age_seconds": 148,
       "status": "recent",
-      "wind_speed_kmh": 3.218688,
-      "wind_gust_kmh": 4.345228800000001,
+      "wind_speed_kmh": 2.7358848,
+      "wind_gust_kmh": 5.149900800000001,
       "wind_from_degrees": 359
     },
     {
       "station_id": "IHOUYE4",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE4",
-      "observed_at": "2026-11-16T22:20:19.000Z",
-      "checked_at": "2026-11-16T22:20:32.783Z",
-      "age_seconds": 14,
+      "observed_at": "2026-11-16T22:30:31.000Z",
+      "checked_at": "2026-11-16T22:30:42.918Z",
+      "age_seconds": 12,
       "status": "recent",
       "wind_speed_kmh": 0,
       "wind_gust_kmh": 0,
-      "wind_from_degrees": 248
+      "wind_from_degrees": 270
     }
   ]
 }
