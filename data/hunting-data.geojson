@@ -1,35 +1,1031 @@
 {
   "type": "FeatureCollection",
   "features": [
-    { "type": "Feature", "geometry": { "type": "Point", "coordinates": [4.9805835, 50.1662890] }, "properties": { "name": "14", "type": "stand", "image": "./images/stands/post_14.jpg" } },
-    { "type": "Feature", "geometry": { "type": "Point", "coordinates": [4.9807636, 50.1663597] }, "properties": { "name": "27", "type": "stand" } },
-    { "type": "Feature", "geometry": { "type": "Point", "coordinates": [4.9810760, 50.1658821] }, "properties": { "name": "Unnamed Post_1", "type": "stand", "image": "./images/stands/unnamed_post_1.jpg" } },
-    { "type": "Feature", "geometry": { "type": "Point", "coordinates": [4.9815542, 50.1666557] }, "properties": { "name": "20H", "type": "stand", "image": "./images/stands/20H.jpg" } },
-    { "type": "Feature", "geometry": { "type": "Point", "coordinates": [4.9821114, 50.1660232] }, "properties": { "name": "9L", "type": "stand", "image": "./images/stands/9L.jpg" } },
-    { "type": "Feature", "geometry": { "type": "Point", "coordinates": [4.9821017, 50.1660616] }, "properties": { "name": "19H", "type": "stand", "image": "./images/stands/19H.jpg" } },
-    { "type": "Feature", "geometry": { "type": "Point", "coordinates": [4.9828010, 50.1654858] }, "properties": { "name": "18H", "type": "stand" } },
-    { "type": "Feature", "geometry": { "type": "Point", "coordinates": [4.9836097, 50.1648855] }, "properties": { "name": "17H", "type": "stand", "image": "./images/stands/17H.jpg" } },
-    { "type": "Feature", "geometry": { "type": "Point", "coordinates": [4.9839413, 50.1645870] }, "properties": { "name": "12L", "type": "stand", "image": "./images/stands/12L.jpg" } },
-    { "type": "Feature", "geometry": { "type": "Point", "coordinates": [4.9843443, 50.1641529] }, "properties": { "name": "13L", "type": "stand", "image": "./images/stands/13L.jpg" } },
-    { "type": "Feature", "geometry": { "type": "Point", "coordinates": [4.9896202, 50.1645791] }, "properties": { "name": "8L", "type": "stand", "image": "./images/stands/unnamed_post_2.jpg"  } },
-    { "type": "Feature", "geometry": { "type": "Point", "coordinates": [4.9855356, 50.1660356] }, "properties": { "name": "La Petite Golette", "type": "stand", "image": "./images/stands/la_petite_golette.jpg" } },
-    { "type": "Feature", "geometry": { "type": "Point", "coordinates": [4.9852248, 50.1633557] }, "properties": { "name": "15H", "type": "stand", "image": "./images/stands/15H.jpg" } },
-    { "type": "Feature", "geometry": { "type": "Point", "coordinates": [4.9851704, 50.1632481] }, "properties": { "name": "14L", "type": "stand", "image": "./images/stands/14L.jpg" } },
-    { "type": "Feature", "geometry": { "type": "Point", "coordinates": [4.9856512, 50.1630221] }, "properties": { "name": "14H", "type": "stand", "image": "./images/stands/14H.jpg" } },
-    { "type": "Feature", "geometry": { "type": "Point", "coordinates": [4.9876163, 50.1624689] }, "properties": { "name": "12H", "type": "stand", "image": "./images/stands/12H.jpg" } },
-    { "type": "Feature", "geometry": { "type": "Point", "coordinates": [4.9865940, 50.1619465] }, "properties": { "name": "17L", "type": "stand", "image": "./images/stands/17L.jpg" } },
-    { "type": "Feature", "geometry": { "type": "Point", "coordinates": [4.9861746, 50.1623471] }, "properties": { "name": "16L", "type": "stand", "image": "./images/stands/16L.jpg" } },
-    { "type": "Feature", "geometry": { "type": "Point", "coordinates": [4.9864556, 50.1625973] }, "properties": { "name": "13H", "type": "stand", "image": "./images/stands/13H.jpg" } },
-    { "type": "Feature", "geometry": { "type": "Point", "coordinates": [4.9855731, 50.1628651] }, "properties": { "name": "15L", "type": "stand" } },
-    { "type": "Feature", "geometry": { "type": "Point", "coordinates": [4.9846370, 50.1640071] }, "properties": { "name": "P3", "type": "parking" } },
-    { "type": "Feature", "geometry": { "type": "Point", "coordinates": [4.9819206, 50.1681646] }, "properties": { "name": "P2", "type": "parking" } },
-    { "type": "Feature", "geometry": { "type": "Point", "coordinates": [4.9770340, 50.1686954] }, "properties": { "name": "Unnamed Post_3", "type": "stand", "image": "./images/stands/unnamed_post_3.jpg" } },
-    { "type": "Feature", "geometry": { "type": "Point", "coordinates": [4.9769495, 50.1710218] }, "properties": { "name": "Parking (Bosrand)", "type": "parking" } },
-    { "type": "Feature", "geometry": { "type": "Point", "coordinates": [4.9721567, 50.1619620] }, "properties": { "name": "Parking (Beneden Monument)", "type": "parking" } },
-    { "type": "Feature", "geometry": { "type": "Point", "coordinates": [4.9730945, 50.1613767] }, "properties": { "name": "Unnamed Post_4", "type": "stand", "image": "./images/stands/unnamed_post_4.jpg" } },
-    { "type": "Feature", "geometry": { "type": "Point", "coordinates": [4.9856459, 50.1616181] }, "properties": { "name": "18L", "type": "stand", "image": "./images/stands/18L.jpg" } },
-    { "type": "Feature", "geometry": { "type": "Point", "coordinates": [4.9826897, 50.1604099] }, "properties": { "name": "Mirador (Vijvers)", "type": "stand" } },
-    { "type": "Feature", "geometry": { "type": "Point", "coordinates": [4.9859496, 50.1628802] }, "properties": { "name": "Unnamed Post_5", "type": "stand", "image": "./images/stands/unnamed_post_5.jpg" } },
-    { "type": "Feature", "geometry": { "type": "Point", "coordinates": [4.9906111, 50.1640556] }, "properties": { "name": "Unnamed Post_6", "type": "stand", "image": "./images/stands/unnamed_post_6.jpg" } }
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9805835,
+          50.166289
+        ]
+      },
+      "properties": {
+        "name": "14",
+        "type": "stand",
+        "image": "./images/stands/post_14.jpg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9807636,
+          50.1663597
+        ]
+      },
+      "properties": {
+        "name": "27",
+        "type": "stand"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.981076,
+          50.1658821
+        ]
+      },
+      "properties": {
+        "name": "Unnamed Post_1",
+        "type": "stand",
+        "image": "./images/stands/unnamed_post_1.jpg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9896202,
+          50.1645791
+        ]
+      },
+      "properties": {
+        "name": "8L",
+        "type": "stand",
+        "image": "./images/stands/unnamed_post_2.jpg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9855356,
+          50.1660356
+        ]
+      },
+      "properties": {
+        "name": "La Petite Golette",
+        "type": "stand",
+        "image": "./images/stands/la_petite_golette.jpg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.984637,
+          50.1640071
+        ]
+      },
+      "properties": {
+        "name": "P3",
+        "type": "parking"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9819206,
+          50.1681646
+        ]
+      },
+      "properties": {
+        "name": "P2",
+        "type": "parking"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.977034,
+          50.1686954
+        ]
+      },
+      "properties": {
+        "name": "Unnamed Post_3",
+        "type": "stand",
+        "image": "./images/stands/unnamed_post_3.jpg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9769495,
+          50.1710218
+        ]
+      },
+      "properties": {
+        "name": "Parking (Bosrand)",
+        "type": "parking"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9721567,
+          50.161962
+        ]
+      },
+      "properties": {
+        "name": "Parking (Beneden Monument)",
+        "type": "parking"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9730945,
+          50.1613767
+        ]
+      },
+      "properties": {
+        "name": "Unnamed Post_4",
+        "type": "stand",
+        "image": "./images/stands/unnamed_post_4.jpg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9826897,
+          50.1604099
+        ]
+      },
+      "properties": {
+        "name": "Mirador (Vijvers)",
+        "type": "stand"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9859496,
+          50.1628802
+        ]
+      },
+      "properties": {
+        "name": "Unnamed Post_5",
+        "type": "stand",
+        "image": "./images/stands/unnamed_post_5.jpg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9906111,
+          50.1640556
+        ]
+      },
+      "properties": {
+        "name": "Unnamed Post_6",
+        "type": "stand",
+        "image": "./images/stands/unnamed_post_6.jpg"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9816222,
+          50.1604504
+        ]
+      },
+      "properties": {
+        "type": "parking",
+        "name": "Parking 4",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9901389,
+          50.163235
+        ]
+      },
+      "properties": {
+        "type": "parking",
+        "name": "Parking 5",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9815034,
+          50.1666034
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 8,
+        "color": "yellow",
+        "name": "8",
+        "description": "Nummer: 8 · Geel",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9819231,
+          50.1661253
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 9,
+        "color": "yellow",
+        "name": "9",
+        "description": "Nummer: 9 · Geel",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9864076,
+          50.1621522
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 17,
+        "color": "yellow",
+        "name": "17",
+        "description": "Nummer: 17 · Geel",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9860051,
+          50.1625231
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 16,
+        "color": "yellow",
+        "name": "16",
+        "description": "Nummer: 16 · Geel",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9856032,
+          50.1629416
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 15,
+        "color": "yellow",
+        "name": "15",
+        "description": "Nummer: 15 · Geel",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9852379,
+          50.1633242
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 14,
+        "color": "yellow",
+        "name": "14",
+        "description": "Nummer: 14 · Geel",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9844132,
+          50.1639709
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 13,
+        "color": "yellow",
+        "name": "13",
+        "description": "Nummer: 13 · Geel",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9839198,
+          50.1644731
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 12,
+        "color": "yellow",
+        "name": "12",
+        "description": "Nummer: 12 · Geel",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9833157,
+          50.1649998
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 11,
+        "color": "yellow",
+        "name": "11",
+        "description": "Nummer: 11 · Geel",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9826373,
+          50.1655149
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 10,
+        "color": "yellow",
+        "name": "10",
+        "description": "Nummer: 10 · Geel",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9773011,
+          50.1627662
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 19,
+        "color": "yellow",
+        "name": "19",
+        "description": "Nummer: 19 · Geel",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9777759,
+          50.1629659
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 20,
+        "color": "yellow",
+        "name": "20",
+        "description": "Nummer: 20 · Geel",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.978541,
+          50.1630688
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 21,
+        "color": "yellow",
+        "name": "21",
+        "description": "Nummer: 21 · Geel",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9793519,
+          50.1634897
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 22,
+        "color": "yellow",
+        "name": "22",
+        "description": "Nummer: 22 · Geel",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9856128,
+          50.1619097
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 18,
+        "color": "yellow",
+        "name": "18",
+        "description": "Nummer: 18 · Geel",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.985126,
+          50.161496
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 1,
+        "color": "yellow",
+        "name": "1",
+        "description": "Nummer: 1 · Geel",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9841967,
+          50.1612275
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 2,
+        "color": "yellow",
+        "name": "2",
+        "description": "Nummer: 2 · Geel",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9831195,
+          50.1609716
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 3,
+        "color": "yellow",
+        "name": "3",
+        "description": "Nummer: 3 · Geel",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9764338,
+          50.1694287
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 7,
+        "color": "yellow",
+        "name": "7",
+        "description": "Nummer: 7 · Geel",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9749956,
+          50.1699121
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 6,
+        "color": "yellow",
+        "name": "6",
+        "description": "Nummer: 6 · Geel",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9707986,
+          50.1675555
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 5,
+        "color": "yellow",
+        "name": "5",
+        "description": "Nummer: 5 · Geel",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9744029,
+          50.1627311
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 4,
+        "color": "yellow",
+        "name": "4",
+        "description": "Nummer: 4 · Geel",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9805165,
+          50.1697369
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 1,
+        "color": "blue",
+        "name": "1",
+        "description": "Nummer: 1 · Blauw",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9816311,
+          50.1699985
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 2,
+        "color": "blue",
+        "name": "2",
+        "description": "Nummer: 2 · Blauw",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9825173,
+          50.1697975
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 3,
+        "color": "blue",
+        "name": "3",
+        "description": "Nummer: 3 · Blauw",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9839059,
+          50.1697721
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 4,
+        "color": "blue",
+        "name": "4",
+        "description": "Nummer: 4 · Blauw",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9850468,
+          50.1699265
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 5,
+        "color": "blue",
+        "name": "5",
+        "description": "Nummer: 5 · Blauw",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.98641,
+          50.1700797
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 6,
+        "color": "blue",
+        "name": "6",
+        "description": "Nummer: 6 · Blauw",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9879108,
+          50.1701429
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 7,
+        "color": "blue",
+        "name": "7",
+        "description": "Nummer: 7 · Blauw",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9892151,
+          50.1700466
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 8,
+        "color": "blue",
+        "name": "8",
+        "description": "Nummer: 8 · Blauw",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9906579,
+          50.1699139
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 9,
+        "color": "blue",
+        "name": "9",
+        "description": "Nummer: 9 · Blauw",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9916284,
+          50.1697837
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 10,
+        "color": "blue",
+        "name": "10",
+        "description": "Nummer: 10 · Blauw",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9909499,
+          50.1688953
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 11,
+        "color": "blue",
+        "name": "11",
+        "description": "Nummer: 11 · Blauw",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9906309,
+          50.1678801
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 12,
+        "color": "blue",
+        "name": "12",
+        "description": "Nummer: 12 · Blauw",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9902009,
+          50.1668655
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 13,
+        "color": "blue",
+        "name": "13",
+        "description": "Nummer: 13 · Blauw",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.990785,
+          50.1648283
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 14,
+        "color": "blue",
+        "name": "14",
+        "description": "Nummer: 14 · Blauw",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9885636,
+          50.1627709
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 15,
+        "color": "blue",
+        "name": "15",
+        "description": "Nummer: 15 · Blauw",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9875868,
+          50.1624193
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 16,
+        "color": "blue",
+        "name": "16",
+        "description": "Nummer: 16 · Blauw",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9867777,
+          50.1621383
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 17,
+        "color": "blue",
+        "name": "17",
+        "description": "Nummer: 17 · Blauw",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9859961,
+          50.1618392
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 18,
+        "color": "blue",
+        "name": "18",
+        "description": "Nummer: 18 · Blauw",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9854344,
+          50.1613605
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 19,
+        "color": "blue",
+        "name": "19",
+        "description": "Nummer: 19 · Blauw",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9843471,
+          50.1610453
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 20,
+        "color": "blue",
+        "name": "20",
+        "description": "Nummer: 20 · Blauw",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9832603,
+          50.1607657
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 21,
+        "color": "blue",
+        "name": "21",
+        "description": "Nummer: 21 · Blauw",
+        "source": "new_posts_data"
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          4.9830639,
+          50.1652182
+        ]
+      },
+      "properties": {
+        "type": "stand",
+        "number": 22,
+        "color": "blue",
+        "name": "22",
+        "description": "Nummer: 22 · Blauw",
+        "source": "new_posts_data"
+      }
+    }
   ]
 }

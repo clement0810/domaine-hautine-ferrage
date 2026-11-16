@@ -617,6 +617,8 @@
       .dark-mode .bottom-sheet-title { background: #3f3f46; color: #fafafa; }
       .bottom-sheet-title[data-stand-class="H"] { background: #22c55e; color: #052e16; }
       .bottom-sheet-title[data-stand-class="L"] { background: #eab308; color: #292000; }
+      .bottom-sheet-title[data-stand-class="yellow"] { background: #eab308; color: #292000; }
+      .bottom-sheet-title[data-stand-class="blue"] { background: #055AA2; color: #fff; }
       .bottom-sheet-title[data-stand-class="mirador"] { background: #dc2626; color: #fff; }
       .bottom-sheet-title[data-stand-class="parking"] { background: #2563eb; color: #fff; }
       .bottom-sheet-close { width: 48px; height: 48px; background: rgb(224 228 222 / 90%); color: #29362e; }
@@ -769,7 +771,7 @@
         navigator.serviceWorker.register("./sw.js")
           .then(() => navigator.serviceWorker.ready)
           .then(async () => {
-            const cache = await caches.open("hunting-map-v36");
+            const cache = await caches.open("hunting-map-v37");
             const requiredFiles = [
               "./index.html",
               "./app.js",

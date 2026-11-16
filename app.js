@@ -150,8 +150,10 @@ function windDirection(degrees) {
 
 function markerColorForFeature(feature) {
   const properties = feature.properties ?? {};
-  if (properties.type === "parking") return "#3b82f6";
+  if (properties.type === "parking") return "#708238";
   if (properties.type === "stand") {
+    if (properties.color === "yellow") return "#eab308";
+    if (properties.color === "blue") return "#055AA2";
     const name = String(properties.name ?? "").trim().toUpperCase();
     if (name.endsWith("L")) return "#eab308";
     if (name.endsWith("H")) return "#22c55e";
@@ -610,7 +612,9 @@ function showFeatureSheet(event) {
 
   featureSheetTitle.textContent = properties.name ?? "Locatie";
   const standSuffix = String(properties.name ?? "").trim().toUpperCase().slice(-1);
-  featureSheetTitle.dataset.standClass = isParking ? "parking" : ["H", "L"].includes(standSuffix) ? standSuffix : "mirador";
+  featureSheetTitle.dataset.standClass = isParking ? "parking"
+    : ["yellow", "blue"].includes(properties.color) ? properties.color
+      : ["H", "L"].includes(standSuffix) ? standSuffix : "mirador";
   featureSheetContent.replaceChildren();
   const content = featureSheetContent;
   const type = document.createElement("div");
@@ -619,6 +623,13 @@ function showFeatureSheet(event) {
   const isBattuePost = isStand && (standName.endsWith("H") || standName.endsWith("L"));
   type.textContent = isParking ? "Parkeerplaats" : isBattuePost ? "Battue Post" : "Jachtpost / mirador";
   content.append(type);
+
+  if (isStand && properties.description) {
+    const description = document.createElement("p");
+    description.className = "bottom-sheet-type";
+    description.textContent = properties.description;
+    content.append(description);
+  }
 
   if (isStand) {
     const terrainInfo = document.createElement("p");
