@@ -1,42 +1,42 @@
 {
-  "generated_at": "2026-11-17T03:30:51.355Z",
+  "generated_at": "2026-11-17T03:40:54.383Z",
   "source": "Weather Underground",
   "observations": [
     {
       "station_id": "IHOUYE10",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE10",
-      "observed_at": "2026-11-17T03:30:32.000Z",
-      "checked_at": "2026-11-17T03:30:42.196Z",
-      "age_seconds": 10,
+      "observed_at": "2026-11-17T03:40:29.000Z",
+      "checked_at": "2026-11-17T03:40:35.434Z",
+      "age_seconds": 6,
       "status": "recent",
-      "wind_speed_kmh": 0.804672,
+      "wind_speed_kmh": 0.32186880000000007,
       "wind_gust_kmh": 1.7702784000000003,
-      "wind_from_degrees": 192
+      "wind_from_degrees": 173
     },
     {
       "station_id": "IHOUYE15",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE15",
-      "observed_at": "2026-11-17T03:28:15.000Z",
-      "checked_at": "2026-11-17T03:30:42.550Z",
-      "age_seconds": 148,
+      "observed_at": "2026-11-17T03:38:14.000Z",
+      "checked_at": "2026-11-17T03:40:35.903Z",
+      "age_seconds": 142,
       "status": "recent",
-      "wind_speed_kmh": 11.7482112,
-      "wind_gust_kmh": 19.6339968,
+      "wind_speed_kmh": 12.5528832,
+      "wind_gust_kmh": 24.783897600000003,
       "wind_from_degrees": 0
     },
     {
       "station_id": "IHOUYE4",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE4",
-      "observed_at": "2026-11-17T03:30:31.000Z",
-      "checked_at": "2026-11-17T03:30:43.067Z",
-      "age_seconds": 12,
+      "observed_at": "2026-11-17T03:40:31.000Z",
+      "checked_at": "2026-11-17T03:40:37.206Z",
+      "age_seconds": 6,
       "status": "recent",
       "wind_speed_kmh": 0,
       "wind_gust_kmh": 0,
-      "wind_from_degrees": 315
+      "wind_from_degrees": 292
     }
   ]
 }
