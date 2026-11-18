@@ -771,7 +771,7 @@
         navigator.serviceWorker.register("./sw.js")
           .then(() => navigator.serviceWorker.ready)
           .then(async () => {
-            const cache = await caches.open("hunting-map-v38");
+            const cache = await caches.open("hunting-map-v39");
             const requiredFiles = [
               "./index.html",
               "./app.js",
@@ -785,7 +785,7 @@
               "./data/hunting-data.geojson",
               "./data/terrain-summary.json",
               "./data/paths.geojson",
-              "./data/hautine_full.pmtiles",
+              "./data/hautine_full.pmtiles.meta",
               "./images/stands/post_14.jpg",
               "./images/stands/20H.jpg",
               "./images/stands/9L.jpg",
@@ -814,9 +814,19 @@
               const response = await cache.match(new URL(path, document.baseURI).href);
               return Boolean(response);
             }));
-            const ready = allCached.every(Boolean);
+            const metadataUrl = new URL("./data/hautine_full.pmtiles.meta", document.baseURI).href;
+            const metadata = await cache.match(metadataUrl);
+            const archiveSize = metadata ? (await metadata.json()).size : 0;
+            const cachedUrls = new Set((await cache.keys()).map((request) => request.url));
+            const chunkCount = Math.ceil(archiveSize / (1024 * 1024));
+            const archiveReady = Number.isSafeInteger(archiveSize) && archiveSize > 0 &&
+              Array.from({ length: chunkCount }, (_, index) => cachedUrls.has(`${metadataUrl}.chunk-${index}`)).every(Boolean);
+            const ready = allCached.every(Boolean) && archiveReady;
             storageState.dataset.ready = String(ready);
             storageState.textContent = ready ? "Offline Ready" : "Offline onvolledig";
+            if (ready && navigator.storage?.persist) {
+              navigator.storage.persist().catch(() => {});
+            }
             updateStorageUsage();
             offlineStatus.textContent = ready
               ? "Offline package cached"

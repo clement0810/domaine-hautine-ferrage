@@ -1,4 +1,4 @@
-const CACHE_NAME = "hunting-map-v38";
+const CACHE_NAME = "hunting-map-v39";
 const FILES_TO_CACHE = [
   "./",
   "./index.html",
@@ -13,7 +13,6 @@ const FILES_TO_CACHE = [
   "./data/hunting-data.geojson",
   "./data/terrain-summary.json",
   "./data/paths.geojson",
-  "./data/hautine_full.pmtiles",
   "./images/stands/post_14.jpg",
   "./images/stands/20H.jpg",
   "./images/stands/9L.jpg",
@@ -39,12 +38,46 @@ const FILES_TO_CACHE = [
   "./images/stands/18L.jpg",
 ];
 const MAP_ARCHIVE_URL = new URL("./data/hautine_full.pmtiles", self.registration.scope).href;
-let archiveBufferPromise;
+const ARCHIVE_CHUNK_SIZE = 1024 * 1024;
+const ARCHIVE_META_URL = new URL("./data/hautine_full.pmtiles.meta", self.registration.scope).href;
+const archiveChunkUrl = (index) => `${ARCHIVE_META_URL}.chunk-${index}`;
+
+async function cacheArchive(cache) {
+  const response = await fetch(new Request(MAP_ARCHIVE_URL, { cache: "reload" }));
+  if (!response.ok || !response.body) throw new Error("Map archive download failed");
+  const reader = response.body.getReader();
+  let chunk = new Uint8Array(ARCHIVE_CHUNK_SIZE);
+  let chunkLength = 0;
+  let total = 0;
+  let index = 0;
+  while (true) {
+    const { value, done } = await reader.read();
+    if (done) break;
+    for (let offset = 0; offset < value.length;) {
+      const length = Math.min(value.length - offset, chunk.length - chunkLength);
+      chunk.set(value.subarray(offset, offset + length), chunkLength);
+      chunkLength += length;
+      total += length;
+      offset += length;
+      if (chunkLength === chunk.length) {
+        await cache.put(archiveChunkUrl(index++), new Response(chunk));
+        chunk = new Uint8Array(ARCHIVE_CHUNK_SIZE);
+        chunkLength = 0;
+      }
+    }
+  }
+  if (chunkLength) await cache.put(archiveChunkUrl(index), new Response(chunk.subarray(0, chunkLength)));
+  if (!total) throw new Error("Map archive is empty");
+  await cache.put(ARCHIVE_META_URL, new Response(JSON.stringify({ size: total }), {
+    headers: { "Content-Type": "application/json" },
+  }));
+}
 
 self.addEventListener("install", (event) => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE_NAME);
     await cache.addAll(FILES_TO_CACHE.map((path) => new Request(path, { cache: "reload" })));
+    await cacheArchive(cache);
     await self.skipWaiting();
   })());
 });
@@ -59,23 +92,27 @@ self.addEventListener("activate", (event) => {
   })());
 });
 
-async function getArchiveBuffer(response) {
-  if (!archiveBufferPromise) {
-    archiveBufferPromise = response.arrayBuffer().catch((error) => {
-      archiveBufferPromise = undefined;
-      throw error;
+async function respondToArchiveRange(request, cache, size) {
+  const range = request.headers.get("range");
+  if (!range) {
+    let index = 0;
+    const stream = new ReadableStream({
+      async pull(controller) {
+        if (index * ARCHIVE_CHUNK_SIZE >= size) {
+          controller.close();
+          return;
+        }
+        const response = await cache.match(archiveChunkUrl(index++));
+        if (!response) throw new Error("Offline map archive is incomplete");
+        controller.enqueue(new Uint8Array(await response.arrayBuffer()));
+      },
+    });
+    return new Response(stream, {
+      headers: { "Content-Type": "application/octet-stream", "Content-Length": String(size), "Accept-Ranges": "bytes" },
     });
   }
-  return archiveBufferPromise;
-}
-
-async function respondToArchiveRange(request, cachedResponse) {
-  const range = request.headers.get("range");
-  if (!range) return cachedResponse;
 
   const match = /^bytes=(\d*)-(\d*)$/.exec(range);
-  const archive = await getArchiveBuffer(cachedResponse.clone());
-  const size = archive.byteLength;
   if (!match || (!match[1] && !match[2])) {
     return new Response(null, {
       status: 416,
@@ -83,7 +120,7 @@ async function respondToArchiveRange(request, cachedResponse) {
     });
   }
 
-  let start = match[1] ? Number(match[1]) : Math.max(size - Number(match[2]), 0);
+  const start = match[1] ? Number(match[1]) : Math.max(size - Number(match[2]), 0);
   let end = match[2] && match[1] ? Number(match[2]) : size - 1;
   if (!Number.isSafeInteger(start) || !Number.isSafeInteger(end) || start >= size || start > end) {
     return new Response(null, {
@@ -93,12 +130,19 @@ async function respondToArchiveRange(request, cachedResponse) {
   }
 
   end = Math.min(end, size - 1);
-  const body = archive.slice(start, end + 1);
-  const headers = new Headers(cachedResponse.headers);
-  headers.delete("Content-Encoding");
+  const parts = [];
+  for (let index = Math.floor(start / ARCHIVE_CHUNK_SIZE); index <= Math.floor(end / ARCHIVE_CHUNK_SIZE); index++) {
+    const response = await cache.match(archiveChunkUrl(index));
+    if (!response) throw new Error("Offline map archive is incomplete");
+    const chunk = await response.arrayBuffer();
+    const chunkStart = index * ARCHIVE_CHUNK_SIZE;
+    parts.push(chunk.slice(Math.max(start - chunkStart, 0), Math.min(end - chunkStart + 1, chunk.byteLength)));
+  }
+  const body = new Blob(parts);
+  const headers = new Headers({ "Content-Type": "application/octet-stream" });
   headers.set("Accept-Ranges", "bytes");
   headers.set("Content-Range", `bytes ${start}-${end}/${size}`);
-  headers.set("Content-Length", String(body.byteLength));
+  headers.set("Content-Length", String(body.size));
   return new Response(body, { status: 206, headers });
 }
 
@@ -112,8 +156,8 @@ self.addEventListener("fetch", (event) => {
   event.respondWith((async () => {
     const cache = await caches.open(CACHE_NAME);
     if (requestUrl.href === MAP_ARCHIVE_URL) {
-      const archive = await cache.match(MAP_ARCHIVE_URL);
-      if (archive) return respondToArchiveRange(request, archive);
+      const metadata = await cache.match(ARCHIVE_META_URL);
+      if (metadata) return respondToArchiveRange(request, cache, (await metadata.json()).size);
     }
 
     const cachedResponse = await cache.match(request);
