@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-20T11:25:04.340Z",
+  "generated_at": "2026-11-20T11:31:00.770Z",
   "source": "Weather Underground",
   "observations": [
     {
@@ -11,25 +11,25 @@
       "station_id": "IHOUYE15",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE15",
-      "observed_at": "2026-11-20T11:17:59.000Z",
-      "checked_at": "2026-11-20T11:24:59.675Z",
-      "age_seconds": 421,
+      "observed_at": "2026-11-20T11:27:59.000Z",
+      "checked_at": "2026-11-20T11:30:54.492Z",
+      "age_seconds": 175,
       "status": "recent",
-      "wind_speed_kmh": 10.6216704,
-      "wind_gust_kmh": 18.0246528,
-      "wind_from_degrees": 256
+      "wind_speed_kmh": 8.2076544,
+      "wind_gust_kmh": 15.771571200000002,
+      "wind_from_degrees": 258
     },
     {
       "station_id": "IHOUYE4",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE4",
-      "observed_at": "2026-11-20T11:24:54.000Z",
-      "checked_at": "2026-11-20T11:24:59.841Z",
-      "age_seconds": 6,
+      "observed_at": "2026-11-20T11:30:42.000Z",
+      "checked_at": "2026-11-20T11:30:54.695Z",
+      "age_seconds": 13,
       "status": "recent",
       "wind_speed_kmh": 0,
       "wind_gust_kmh": 0,
-      "wind_from_degrees": 225
+      "wind_from_degrees": 248
     }
   ]
 }
