@@ -1,42 +1,42 @@
 {
-  "generated_at": "2026-11-22T10:40:40.399Z",
+  "generated_at": "2026-11-22T10:50:39.672Z",
   "source": "Weather Underground",
   "observations": [
     {
       "station_id": "IHOUYE10",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE10",
-      "observed_at": "2026-11-22T10:40:20.000Z",
-      "checked_at": "2026-11-22T10:40:34.296Z",
-      "age_seconds": 14,
+      "observed_at": "2026-11-22T10:50:17.000Z",
+      "checked_at": "2026-11-22T10:50:33.696Z",
+      "age_seconds": 17,
       "status": "recent",
       "wind_speed_kmh": 1.7702784000000003,
-      "wind_gust_kmh": 1.7702784000000003,
-      "wind_from_degrees": 323
+      "wind_gust_kmh": 3.5405568000000005,
+      "wind_from_degrees": 243
     },
     {
       "station_id": "IHOUYE15",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE15",
-      "observed_at": "2026-11-22T10:37:53.000Z",
-      "checked_at": "2026-11-22T10:40:34.522Z",
+      "observed_at": "2026-11-22T10:47:52.000Z",
+      "checked_at": "2026-11-22T10:50:33.931Z",
       "age_seconds": 162,
       "status": "recent",
-      "wind_speed_kmh": 6.1155072,
-      "wind_gust_kmh": 11.909145600000002,
-      "wind_from_degrees": 93
+      "wind_speed_kmh": 7.885785600000001,
+      "wind_gust_kmh": 14.8059648,
+      "wind_from_degrees": 111
     },
     {
       "station_id": "IHOUYE4",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE4",
-      "observed_at": "2026-11-22T10:40:30.000Z",
-      "checked_at": "2026-11-22T10:40:34.692Z",
-      "age_seconds": 5,
+      "observed_at": "2026-11-22T10:50:30.000Z",
+      "checked_at": "2026-11-22T10:50:34.066Z",
+      "age_seconds": 4,
       "status": "recent",
       "wind_speed_kmh": 0,
       "wind_gust_kmh": 0,
-      "wind_from_degrees": 22
+      "wind_from_degrees": 45
     }
   ]
 }
