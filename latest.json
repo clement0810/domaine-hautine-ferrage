@@ -1,42 +1,42 @@
 {
-  "generated_at": "2026-11-23T06:40:43.403Z",
+  "generated_at": "2026-11-23T06:50:43.369Z",
   "source": "Weather Underground",
   "observations": [
     {
       "station_id": "IHOUYE10",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE10",
-      "observed_at": "2026-11-23T06:40:29.000Z",
-      "checked_at": "2026-11-23T06:40:36.317Z",
-      "age_seconds": 7,
+      "observed_at": "2026-11-23T06:50:18.000Z",
+      "checked_at": "2026-11-23T06:50:34.951Z",
+      "age_seconds": 17,
       "status": "recent",
-      "wind_speed_kmh": 0.32186880000000007,
-      "wind_gust_kmh": 1.7702784000000003,
-      "wind_from_degrees": 253
+      "wind_speed_kmh": 0,
+      "wind_gust_kmh": 0,
+      "wind_from_degrees": 206
     },
     {
       "station_id": "IHOUYE15",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE15",
-      "observed_at": "2026-11-23T06:37:50.000Z",
-      "checked_at": "2026-11-23T06:40:36.711Z",
-      "age_seconds": 167,
+      "observed_at": "2026-11-23T06:47:49.000Z",
+      "checked_at": "2026-11-23T06:50:35.181Z",
+      "age_seconds": 166,
       "status": "recent",
-      "wind_speed_kmh": 2.2530816,
-      "wind_gust_kmh": 6.5983104,
+      "wind_speed_kmh": 2.7358848,
+      "wind_gust_kmh": 5.149900800000001,
       "wind_from_degrees": 2
     },
     {
       "station_id": "IHOUYE4",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE4",
-      "observed_at": "2026-11-23T06:40:30.000Z",
-      "checked_at": "2026-11-23T06:40:36.916Z",
-      "age_seconds": 7,
+      "observed_at": "2026-11-23T06:50:30.000Z",
+      "checked_at": "2026-11-23T06:50:35.546Z",
+      "age_seconds": 6,
       "status": "recent",
       "wind_speed_kmh": 0,
       "wind_gust_kmh": 0,
-      "wind_from_degrees": 45
+      "wind_from_degrees": 22
     }
   ]
 }
