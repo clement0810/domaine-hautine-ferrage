@@ -1,42 +1,42 @@
 {
-  "generated_at": "2026-11-24T10:40:43.178Z",
+  "generated_at": "2026-11-24T10:50:50.934Z",
   "source": "Weather Underground",
   "observations": [
     {
       "station_id": "IHOUYE10",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE10",
-      "observed_at": "2026-11-24T10:40:32.000Z",
-      "checked_at": "2026-11-24T10:40:36.216Z",
-      "age_seconds": 4,
+      "observed_at": "2026-11-24T10:50:37.000Z",
+      "checked_at": "2026-11-24T10:50:44.456Z",
+      "age_seconds": 7,
       "status": "recent",
-      "wind_speed_kmh": 1.4484096000000002,
+      "wind_speed_kmh": 1.7702784000000003,
       "wind_gust_kmh": 1.7702784000000003,
-      "wind_from_degrees": 196
+      "wind_from_degrees": 110
     },
     {
       "station_id": "IHOUYE15",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE15",
-      "observed_at": "2026-11-24T10:37:47.000Z",
-      "checked_at": "2026-11-24T10:40:36.432Z",
-      "age_seconds": 169,
+      "observed_at": "2026-11-24T10:47:46.000Z",
+      "checked_at": "2026-11-24T10:50:44.691Z",
+      "age_seconds": 179,
       "status": "recent",
-      "wind_speed_kmh": 12.07008,
-      "wind_gust_kmh": 20.2777344,
-      "wind_from_degrees": 278
+      "wind_speed_kmh": 11.587276800000001,
+      "wind_gust_kmh": 19.6339968,
+      "wind_from_degrees": 139
     },
     {
       "station_id": "IHOUYE4",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE4",
-      "observed_at": "2026-11-24T10:40:30.000Z",
-      "checked_at": "2026-11-24T10:40:36.601Z",
-      "age_seconds": 7,
+      "observed_at": "2026-11-24T10:50:42.000Z",
+      "checked_at": "2026-11-24T10:50:44.907Z",
+      "age_seconds": 3,
       "status": "recent",
       "wind_speed_kmh": 0,
       "wind_gust_kmh": 0,
-      "wind_from_degrees": 68
+      "wind_from_degrees": 45
     }
   ]
 }
