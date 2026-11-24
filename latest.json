@@ -1,42 +1,42 @@
 {
-  "generated_at": "2026-11-24T04:20:39.987Z",
+  "generated_at": "2026-11-24T04:31:04.582Z",
   "source": "Weather Underground",
   "observations": [
     {
       "station_id": "IHOUYE10",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE10",
-      "observed_at": "2026-11-24T04:20:28.000Z",
-      "checked_at": "2026-11-24T04:20:33.982Z",
-      "age_seconds": 6,
+      "observed_at": "2026-11-24T04:30:31.000Z",
+      "checked_at": "2026-11-24T04:30:46.304Z",
+      "age_seconds": 15,
       "status": "recent",
-      "wind_speed_kmh": 0.32186880000000007,
-      "wind_gust_kmh": 1.7702784000000003,
-      "wind_from_degrees": 184
+      "wind_speed_kmh": 0,
+      "wind_gust_kmh": 0,
+      "wind_from_degrees": 195
     },
     {
       "station_id": "IHOUYE15",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE15",
-      "observed_at": "2026-11-24T04:17:47.000Z",
-      "checked_at": "2026-11-24T04:20:34.193Z",
-      "age_seconds": 167,
+      "observed_at": "2026-11-24T04:27:47.000Z",
+      "checked_at": "2026-11-24T04:30:46.738Z",
+      "age_seconds": 180,
       "status": "recent",
-      "wind_speed_kmh": 4.5061632,
-      "wind_gust_kmh": 7.4029824,
-      "wind_from_degrees": 0
+      "wind_speed_kmh": 4.828032,
+      "wind_gust_kmh": 6.759244800000001,
+      "wind_from_degrees": 1
     },
     {
       "station_id": "IHOUYE4",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE4",
-      "observed_at": "2026-11-24T04:20:30.000Z",
-      "checked_at": "2026-11-24T04:20:34.370Z",
+      "observed_at": "2026-11-24T04:30:43.000Z",
+      "checked_at": "2026-11-24T04:30:47.000Z",
       "age_seconds": 4,
       "status": "recent",
       "wind_speed_kmh": 0,
       "wind_gust_kmh": 0,
-      "wind_from_degrees": 45
+      "wind_from_degrees": 68
     }
   ]
 }
