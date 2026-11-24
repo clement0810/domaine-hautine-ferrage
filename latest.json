@@ -1,42 +1,42 @@
 {
-  "generated_at": "2026-11-24T16:20:40.872Z",
+  "generated_at": "2026-11-24T16:30:53.163Z",
   "source": "Weather Underground",
   "observations": [
     {
       "station_id": "IHOUYE10",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE10",
-      "observed_at": "2026-11-24T16:20:29.000Z",
-      "checked_at": "2026-11-24T16:20:34.415Z",
-      "age_seconds": 5,
+      "observed_at": "2026-11-24T16:30:31.000Z",
+      "checked_at": "2026-11-24T16:30:46.753Z",
+      "age_seconds": 16,
       "status": "recent",
-      "wind_speed_kmh": 4.6670976,
+      "wind_speed_kmh": 5.4717696,
       "wind_gust_kmh": 5.4717696,
-      "wind_from_degrees": 100
+      "wind_from_degrees": 117
     },
     {
       "station_id": "IHOUYE15",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE15",
-      "observed_at": "2026-11-24T16:17:45.000Z",
-      "checked_at": "2026-11-24T16:20:34.794Z",
-      "age_seconds": 170,
+      "observed_at": "2026-11-24T16:27:45.000Z",
+      "checked_at": "2026-11-24T16:30:47.039Z",
+      "age_seconds": 182,
       "status": "recent",
-      "wind_speed_kmh": 10.1388672,
-      "wind_gust_kmh": 16.576243200000004,
-      "wind_from_degrees": 116
+      "wind_speed_kmh": 11.909145600000002,
+      "wind_gust_kmh": 18.6683904,
+      "wind_from_degrees": 112
     },
     {
       "station_id": "IHOUYE4",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE4",
-      "observed_at": "2026-11-24T16:20:31.000Z",
-      "checked_at": "2026-11-24T16:20:35.070Z",
-      "age_seconds": 4,
+      "observed_at": "2026-11-24T16:30:43.000Z",
+      "checked_at": "2026-11-24T16:30:47.523Z",
+      "age_seconds": 5,
       "status": "recent",
       "wind_speed_kmh": 0,
       "wind_gust_kmh": 0,
-      "wind_from_degrees": 68
+      "wind_from_degrees": 338
     }
   ]
 }
