@@ -1,42 +1,42 @@
 {
-  "generated_at": "2026-11-24T11:31:14.564Z",
+  "generated_at": "2026-11-24T11:40:41.594Z",
   "source": "Weather Underground",
   "observations": [
     {
       "station_id": "IHOUYE10",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE10",
-      "observed_at": "2026-11-24T11:30:52.000Z",
-      "checked_at": "2026-11-24T11:30:55.798Z",
-      "age_seconds": 4,
+      "observed_at": "2026-11-24T11:40:28.000Z",
+      "checked_at": "2026-11-24T11:40:34.633Z",
+      "age_seconds": 7,
       "status": "recent",
-      "wind_speed_kmh": 5.4717696,
+      "wind_speed_kmh": 4.6670976,
       "wind_gust_kmh": 7.2420480000000005,
-      "wind_from_degrees": 90
+      "wind_from_degrees": 92
     },
     {
       "station_id": "IHOUYE15",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE15",
-      "observed_at": "2026-11-24T11:27:46.000Z",
-      "checked_at": "2026-11-24T11:30:56.028Z",
-      "age_seconds": 190,
+      "observed_at": "2026-11-24T11:37:46.000Z",
+      "checked_at": "2026-11-24T11:40:34.926Z",
+      "age_seconds": 169,
       "status": "recent",
-      "wind_speed_kmh": 12.713817600000002,
-      "wind_gust_kmh": 23.335488,
-      "wind_from_degrees": 129
+      "wind_speed_kmh": 12.5528832,
+      "wind_gust_kmh": 23.4964224,
+      "wind_from_degrees": 127
     },
     {
       "station_id": "IHOUYE4",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE4",
-      "observed_at": "2026-11-24T11:30:42.000Z",
-      "checked_at": "2026-11-24T11:30:56.250Z",
-      "age_seconds": 14,
+      "observed_at": "2026-11-24T11:40:30.000Z",
+      "checked_at": "2026-11-24T11:40:35.150Z",
+      "age_seconds": 5,
       "status": "recent",
       "wind_speed_kmh": 0,
       "wind_gust_kmh": 0,
-      "wind_from_degrees": 68
+      "wind_from_degrees": 45
     }
   ]
 }
