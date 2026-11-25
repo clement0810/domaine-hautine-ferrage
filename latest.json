@@ -1,42 +1,42 @@
 {
-  "generated_at": "2026-11-25T06:31:02.400Z",
+  "generated_at": "2026-11-25T06:40:50.287Z",
   "source": "Weather Underground",
   "observations": [
     {
       "station_id": "IHOUYE10",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE10",
-      "observed_at": "2026-11-25T06:30:39.000Z",
-      "checked_at": "2026-11-25T06:30:45.451Z",
-      "age_seconds": 6,
+      "observed_at": "2026-11-25T06:40:16.000Z",
+      "checked_at": "2026-11-25T06:40:33.483Z",
+      "age_seconds": 17,
       "status": "recent",
-      "wind_speed_kmh": 2.8968192000000004,
-      "wind_gust_kmh": 3.5405568000000005,
-      "wind_from_degrees": 37
+      "wind_speed_kmh": 0.804672,
+      "wind_gust_kmh": 1.7702784000000003,
+      "wind_from_degrees": 198
     },
     {
       "station_id": "IHOUYE15",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE15",
-      "observed_at": "2026-11-25T06:27:43.000Z",
-      "checked_at": "2026-11-25T06:30:45.737Z",
-      "age_seconds": 183,
+      "observed_at": "2026-11-25T06:37:44.000Z",
+      "checked_at": "2026-11-25T06:40:33.804Z",
+      "age_seconds": 170,
       "status": "recent",
-      "wind_speed_kmh": 6.759244800000001,
-      "wind_gust_kmh": 9.656064,
+      "wind_speed_kmh": 7.081113600000001,
+      "wind_gust_kmh": 9.495129600000002,
       "wind_from_degrees": 144
     },
     {
       "station_id": "IHOUYE4",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE4",
-      "observed_at": "2026-11-25T06:30:43.000Z",
-      "checked_at": "2026-11-25T06:30:45.955Z",
+      "observed_at": "2026-11-25T06:40:31.000Z",
+      "checked_at": "2026-11-25T06:40:34.018Z",
       "age_seconds": 3,
       "status": "recent",
       "wind_speed_kmh": 0,
       "wind_gust_kmh": 0,
-      "wind_from_degrees": 68
+      "wind_from_degrees": 45
     }
   ]
 }
