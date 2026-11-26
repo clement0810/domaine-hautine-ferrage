@@ -1,42 +1,42 @@
 {
-  "generated_at": "2026-11-26T03:10:42.856Z",
+  "generated_at": "2026-11-26T03:20:46.441Z",
   "source": "Weather Underground",
   "observations": [
     {
       "station_id": "IHOUYE10",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE10",
-      "observed_at": "2026-11-26T03:10:21.000Z",
-      "checked_at": "2026-11-26T03:10:35.313Z",
-      "age_seconds": 14,
+      "observed_at": "2026-11-26T03:20:35.000Z",
+      "checked_at": "2026-11-26T03:20:41.246Z",
+      "age_seconds": 6,
       "status": "recent",
-      "wind_speed_kmh": 1.7702784000000003,
-      "wind_gust_kmh": 1.7702784000000003,
-      "wind_from_degrees": 72
+      "wind_speed_kmh": 4.6670976,
+      "wind_gust_kmh": 7.2420480000000005,
+      "wind_from_degrees": 38
     },
     {
       "station_id": "IHOUYE15",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE15",
-      "observed_at": "2026-11-26T03:00:48.000Z",
-      "checked_at": "2026-11-26T03:10:35.721Z",
-      "age_seconds": 588,
+      "observed_at": "2026-11-26T03:10:45.000Z",
+      "checked_at": "2026-11-26T03:20:41.579Z",
+      "age_seconds": 597,
       "status": "recent",
       "wind_speed_kmh": 6.1155072,
-      "wind_gust_kmh": 10.460736,
-      "wind_from_degrees": 97
+      "wind_gust_kmh": 12.07008,
+      "wind_from_degrees": 109
     },
     {
       "station_id": "IHOUYE4",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE4",
-      "observed_at": "2026-11-26T03:10:30.000Z",
-      "checked_at": "2026-11-26T03:10:36.197Z",
-      "age_seconds": 6,
+      "observed_at": "2026-11-26T03:20:30.000Z",
+      "checked_at": "2026-11-26T03:20:41.934Z",
+      "age_seconds": 12,
       "status": "recent",
       "wind_speed_kmh": 0,
       "wind_gust_kmh": 0,
-      "wind_from_degrees": 22
+      "wind_from_degrees": 45
     }
   ]
 }
