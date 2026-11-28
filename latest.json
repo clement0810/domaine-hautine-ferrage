@@ -1,42 +1,42 @@
 {
-  "generated_at": "2026-11-28T01:50:43.468Z",
+  "generated_at": "2026-11-28T02:00:57.835Z",
   "source": "Weather Underground",
   "observations": [
     {
       "station_id": "IHOUYE10",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE10",
-      "observed_at": "2026-11-28T01:50:25.000Z",
-      "checked_at": "2026-11-28T01:50:35.783Z",
+      "observed_at": "2026-11-28T02:00:41.000Z",
+      "checked_at": "2026-11-28T02:00:51.703Z",
       "age_seconds": 11,
       "status": "recent",
-      "wind_speed_kmh": 0.32186880000000007,
-      "wind_gust_kmh": 1.7702784000000003,
-      "wind_from_degrees": 166
+      "wind_speed_kmh": 0,
+      "wind_gust_kmh": 0,
+      "wind_from_degrees": 161
     },
     {
       "station_id": "IHOUYE15",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE15",
-      "observed_at": "2026-11-28T01:50:12.000Z",
-      "checked_at": "2026-11-28T01:50:36.271Z",
-      "age_seconds": 24,
+      "observed_at": "2026-11-28T02:00:11.000Z",
+      "checked_at": "2026-11-28T02:00:52.025Z",
+      "age_seconds": 41,
       "status": "recent",
-      "wind_speed_kmh": 4.988966400000001,
-      "wind_gust_kmh": 10.460736,
-      "wind_from_degrees": 164
+      "wind_speed_kmh": 5.149900800000001,
+      "wind_gust_kmh": 9.0123264,
+      "wind_from_degrees": 167
     },
     {
       "station_id": "IHOUYE4",
       "source": "Weather Underground public station page",
       "source_url": "https://www.wunderground.com/dashboard/pws/IHOUYE4",
-      "observed_at": "2026-11-28T01:50:30.000Z",
-      "checked_at": "2026-11-28T01:50:36.711Z",
-      "age_seconds": 7,
+      "observed_at": "2026-11-28T02:00:43.000Z",
+      "checked_at": "2026-11-28T02:00:52.499Z",
+      "age_seconds": 9,
       "status": "recent",
       "wind_speed_kmh": 0,
       "wind_gust_kmh": 0,
-      "wind_from_degrees": 45
+      "wind_from_degrees": 22
     }
   ]
 }
